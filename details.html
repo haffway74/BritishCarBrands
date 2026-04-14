@@ -10,27 +10,22 @@
 </head>
 
 <body>
-
-  <!-- Back Button -->
-  <button class="back-btn" onclick="history.back()">← Back</button>
-
-  <!-- Hero Image -->
-  <div class="hero-image">
-    <img id="heroImage" src="" alt="Car Hero Image">
-  </div>
-
-  <!-- Car Title -->
-  <header class="details-header">
-    <h1 id="car-title"></h1>
-    <p id="car-subtitle"></p>
+  <header>
+    <a href="brand.html" class="back-button">← Back</a>
   </header>
 
-  <!-- Image Gallery -->
-  <div id="imageGallery" class="image-gallery"></div>
+  <main class="details-container">
+    <h1 id="car-title"></h1>
+    <h2 id="car-subtitle"></h2>
 
-  <!-- Car Specs -->
-  <section class="car-specs">
-    <div class="details-card">
+    <!-- HERO IMAGE -->
+    <img id="heroImage" class="hero-image" src="" alt="Car hero image">
+
+    <!-- GALLERY -->
+    <div id="imageGallery" class="image-gallery"></div>
+
+    <!-- SPECS -->
+    <section class="car-specs">
       <h2>Specifications</h2>
       <p><strong>Engine:</strong> <span id="spec-engine"></span></p>
       <p><strong>Engine Capacity:</strong> <span id="spec-capacity"></span> L</p>
@@ -39,34 +34,23 @@
       <p><strong>Drivetrain:</strong> <span id="spec-drive"></span></p>
       <p><strong>Transmission:</strong> <span id="spec-trans"></span></p>
       <p><strong>Seating:</strong> <span id="spec-seat"></span></p>
-    </div>
+    </section>
 
-    <div class="details-card">
+    <!-- NOTABLE DETAILS -->
+    <section class="car-details">
       <h2>Notable Details</h2>
       <ul id="notable-list"></ul>
-    </div>
+    </section>
 
-    <div class="details-card">
+    <!-- TAGS -->
+    <section class="car-tags">
       <h2>Tags</h2>
-      <div id="tag-list"></div>
-    </div>
-  </section>
+      <div id="tag-list" class="tag-list"></div>
+    </section>
+  </main>
 
-  <!-- Lightbox Viewer -->
-  <div id="lightbox" class="lightbox-overlay">
-    <span id="lightbox-close" class="lightbox-close">×</span>
-    <span id="lightbox-prev" class="lightbox-arrow left">‹</span>
-    <img id="lightbox-img" class="lightbox-image" src="">
-    <span id="lightbox-next" class="lightbox-arrow right">›</span>
-  </div>
-
-  <!-- Scripts -->
   <script src="data/cars.js"></script>
   <script src="script.js"></script>
-  <script>
-    // Initialize details page
-    loadCarDetails();
-  </script>
-
 </body>
+
 </html>
