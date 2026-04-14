@@ -1,0 +1,390 @@
+/* =========================
+   BRITISH RACING GREEN THEME
+========================= */
+
+:root {
+  --bg: #0a1f16;
+  --bg-light: #0f2d22;
+  --card: #123528;
+  --accent: #d4af37;
+  --accent-soft: #e6c96b;
+  --text: #e8f5e9;
+  --text-dim: #9bb8a5;
+  --border: #1f4d3a;
+  --radius: 12px;
+  --transition: 0.25s ease;
+  --shadow: 0 0 20px rgba(0,0,0,0.4);
+
+  /* Brand accent color (dynamic) */
+  --brand-color: var(--accent);
+}
+
+/* =========================
+   GLOBAL
+========================= */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.brands-page-title {
+  text-align: center;
+  font-size: 48px;
+  color: var(--accent);
+  margin-top: 40px;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+/* =========================
+   SEARCH + FILTER
+========================= */
+
+.brand-search-section {
+  max-width: 1200px;
+  margin: 20px auto 10px;
+  display: flex;
+  gap: 16px;
+  padding: 0 40px;
+}
+
+#brandSearchInput,
+#brandCategoryFilter {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 16px;
+  flex: 1;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+#brandSearchInput:focus,
+#brandCategoryFilter:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* =========================
+   BRAND GROUP BOXES
+========================= */
+
+.brand-group {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 24px;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 2px solid var(--brand-color);
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   BRAND GRID
+========================= */
+
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+}
+
+.brand-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.brand-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-color);
+}
+
+.brand-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.brand-card span {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* =========================
+   BRAND HERO SECTION
+========================= */
+
+#brand-hero {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 0 0 20px 20px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+#brand-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  border-radius: 0 0 20px 20px;
+  pointer-events: none;
+}
+
+#brand-title {
+  position: relative;
+  margin-top: -60px;
+  text-align: center;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+}
+
+/* =========================
+   BRAND MODEL GRID
+========================= */
+
+#brand-models {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.model-card {
+  background: var(--card);
+  border: 2px solid var(--brand-color);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  box-shadow: var(--shadow);
+}
+
+.model-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.model-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.model-thumb {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  border: 2px solid var(--brand-color);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), border-color var(--transition);
+}
+
+.model-card:hover .model-thumb {
+  transform: scale(1.03);
+  border-color: var(--accent);
+}
+
+.model-card h3 {
+  font-size: 20px;
+  color: var(--accent);
+}
+
+.model-card p {
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+/* =========================
+   DETAILS PAGE
+========================= */
+
+.hero-image img {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-bottom: 2px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.details-header {
+  background: var(--bg-light);
+  padding: 24px;
+  text-align: center;
+  border-bottom: 2px solid var(--accent);
+  box-shadow: var(--shadow);
+}
+
+.details-header h1 {
+  font-size: 2rem;
+  color: var(--accent);
+}
+
+.details-header p {
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* =========================
+   IMAGE GALLERY
+========================= */
+
+.image-gallery {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  overflow-x: auto;
+}
+
+.gallery-thumb {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid var(--border);
+}
+
+.gallery-thumb:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   SPECS + DETAILS
+========================= */
+
+.car-specs {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.details-card {
+  background: var(--card);
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--accent);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+}
+
+.details-card ul {
+  padding-left: 20px;
+}
+
+#tag-list span {
+  display: inline-block;
+  background: var(--bg-light);
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  margin: 4px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  z-index: 9999;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-image {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 3px solid var(--accent);
+}
+
+.lightbox-close,
+.lightbox-arrow {
+  position: absolute;
+  color: var(--accent);
+  font-size: 3rem;
+  cursor: pointer;
+  user-select: none;
+  text-shadow: var(--shadow);
+}
+
+.lightbox-close {
+  top: 20px;
+  right: 30px;
+}
+
+.lightbox-arrow.left {
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox-arrow.right {
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 600px) {
+  .brands-page-title {
+    font-size: 32px;
+  }
+
+  .brand-card img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .model-card {
+    padding: 16px;
+  }
+}

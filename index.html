@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>British Car Database (BCV2)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="stylesheet" href="./style.css" />
+  <meta http-equiv="refresh" content="0; url=brands.html">
+</head>
+
+<body>
+  <header class="app-header">
+    <h1>British Car Database</h1>
+    <p>Search across legacy and modern British cars – built for the Saskatchewan British Car Club.</p>
+ 
+ <a href="brands.html" class="details-btn">Browse by Brand</a>
+  </header>
+
+  <!-- Search Bar + Era Filter -->
+  <section class="search-section">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by manufacturer, model, engine, years, tags..."
+    />
+    <select id="filterEra">
+      <option value="all">All eras</option>
+      <option value="modern">Modern</option>
+      <option value="classic">Classic / Legacy</option>
+    </select>
+  </section>
+
+  <!-- Filter Panel -->
+  <section class="filter-panel">
+    <select id="filterManufacturer">
+      <option value="all">All Manufacturers</option>
+    </select>
+
+    <select id="filterBody">
+      <option value="all">All Body Styles</option>
+    </select>
+
+    <select id="filterDrivetrain">
+      <option value="all">All Drivetrains</option>
+    </select>
+
+    <select id="filterTransmission">
+      <option value="all">All Transmissions</option>
+    </select>
+
+    <select id="filterSeating">
+      <option value="all">All Seating</option>
+    </select>
+
+    <input type="number" id="engineMin" placeholder="Min L" step="0.1" />
+    <input type="number" id="engineMax" placeholder="Max L" step="0.1" />
+
+    <select id="filterTags">
+      <option value="all">All Tags</option>
+    </select>
+  </section>
+
+  <!-- Car Cards Render Here -->
+  <section id="carContainer" class="car-container"></section>
+
+  <footer class="app-footer">
+    <p>BCV2-db • Built by a Lotus Emira owner for fellow British car enthusiasts.</p>
+  </footer>
+
+  <script src="./data/cars.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
