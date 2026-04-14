@@ -1,40 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brand Details</title>
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
+  <!-- DARK THEME CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- Brand Hero Section -->
-  <div id="brand-hero"></div>
+<header class="site-header">
+  <h1 id="brandName"></h1>
+</header>
 
-  <!-- Brand Title -->
-  <h1 id="brand-title"></h1>
+<div class="page-container">
 
-  <!-- Brand History Section -->
-  <section id="brand-history" class="brand-history-section">
-    <h2>Brand History</h2>
-    <p id="brand-history-text"></p>
-  </section>
+  <!-- BRAND LOGO -->
+  <div style="text-align:center; margin-top:20px;">
+    <img id="brandLogo" style="max-width:180px; filter:brightness(0.9);" />
+  </div>
 
-  <!-- Famous Models Section -->
-  <section id="famous-models" class="famous-models-section">
-    <h2>Famous Models</h2>
-    <ul id="famous-models-list"></ul>
-  </section>
+  <!-- BRAND HISTORY -->
+  <div class="brand-section-box" style="margin-top:30px;">
+    <h2 class="section-title">Brand History</h2>
+    <p id="brandHistory" style="line-height:1.6; color:var(--text-light);"></p>
+  </div>
 
-  <!-- Model Grid -->
-  <div id="brand-models" class="brand-models"></div>
+  <!-- MODELS -->
+  <h2 class="section-title">Models</h2>
+  <div class="brand-section-box">
+    <div id="modelGrid" class="brand-grid"></div>
+  </div>
 
-  <!-- Scripts -->
-  <script src="data/cars.js"></script>
-  <script src="script.js"></script>
+</div>
+
+<!-- MUST LOAD IN THIS ORDER -->
+<script src="data/cars.js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const brandSlug = urlParams.get("brand");
+
+  const brandModels = britishCars.filter(car => car.slug === brandSlug);
+
+  if (brandModels.length === 0) {
+    document.body.innerHTML = "<h2 style='text-align:center; color:white;'>Brand not found.</h2>";
+  }
+
+  const brandName = brandModels[0].manufacturer;
+  const brandLogo = brandLogos[brandSlug];
+  const brandTheme = brandThemes[brandSlug];
+  const history = brandHistory[brandSlug];
+
+  document.getElementById("brandName").textContent = brandName;
+  document.getElementById("brandLogo").src = brandLogo;
+  document.getElementById("brandHistory").innerHTML = history.replace(/\n/g, "<br>");
+
+  // Apply brand accent color
+  document.documentElement.style.setProperty("--brand-color", brandTheme);
+
+  const grid = document.getElementById("modelGrid");
+
+  brandModels.forEach(model => {
+    const card = document.createElement("div");
+    card.className = "brand-card";
+    card.onclick = () => {
+      window.location.href = `details.html?brand=${model.slug}&model=${model.model_slug}`;
+    };
+
+    card.innerHTML = `
+      <div class="brand-card-header">
+        <img src="${model.hero_image}" alt="${model.model}" class="brand-card-logo" style="max-height:120px; border-radius:6px;" />
+      </div>
+      <div class="brand-card-body">
+        <h3>${model.model}</h3>
+        <p class="brand-meta">Years: ${model.years_produced}</p>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+</script>
 
 </body>
 </html>

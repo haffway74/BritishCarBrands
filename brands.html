@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>British Car Brands</title>
-
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>British Marques</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-  <!-- Page Title -->
-  <h1 class="brands-page-title">British Car Brands</h1>
+<header class="site-header">
+  <h1 class="site-title">British Car Encyclopedia</h1>
+  <div class="nav-links">
+    <a href="brands.html">Brands</a>
+  </div>
+</header>
 
-  <!-- Search + Filter -->
-  <section class="brand-search-section">
-    <input type="text" id="brandSearchInput" placeholder="Search brands...">
-    <select id="brandCategoryFilter">
-      <option value="all">All Categories</option>
-      <option value="sports">Sports</option>
-      <option value="luxury">Luxury</option>
-      <option value="classic">Classic</option>
-      <option value="modern">Modern</option>
-    </select>
-  </section>
+<div class="page-container">
+  <h2 class="section-title">Explore British Marques</h2>
 
-  <!-- Modern Brands Box -->
-  <section class="brand-group">
-    <div id="modern-brands" class="brand-grid"></div>
-  </section>
+  <div class="search-bar-container">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search by brand or model..."
+    />
+    <div id="searchResults"></div>
+  </div>
 
-  <!-- Classic Brands Box -->
-  <section class="brand-group">
-    <div id="classic-brands" class="brand-grid"></div>
-  </section>
+  <!-- MODERN BRANDS -->
+  <h2 class="section-title">Modern Brands</h2>
+  <div class="brand-section-box">
+    <div id="modernBrands" class="brand-grid"></div>
+  </div>
 
-  <!-- Scripts -->
-  <script src="data/cars.js"></script>
-  <script src="script.js"></script>
+  <!-- CLASSIC BRANDS -->
+  <h2 class="section-title">Classic Brands</h2>
+  <div class="brand-section-box">
+    <div id="classicBrands" class="brand-grid"></div>
+  </div>
+
+</div>
+
+<!-- IMPORTANT: cars.js must load BEFORE script.js -->
+<script src="data/cars.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
