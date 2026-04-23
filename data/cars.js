@@ -606,59 +606,1029 @@ const britishCars = [
     ]
   },
 
-  // 12. Lotus — Emira
-  {
-    manufacturer: "Lotus",
-    slug: "lotus",
-    brand_group: "Sports / Performance",
-    brand_url: "https://www.lotuscars.com",
-    model: "Emira",
-    model_slug: "emira",
-    model_summary: "Lotus’s final petrol-powered sports car, blending modern refinement with classic lightweight handling.",
-    years_produced: "2021–present",
-    engine: "3.5L supercharged V6 or 2.0L turbo I4",
-    horsepower: 360,
-    top_speed_mph: 180,
-    body_style: "2-door coupé",
-    drivetrain: "RWD",
-    transmission: "6-speed manual or automatic",
-    seating: 2,
-    production_location: "Hethel, England",
-    designer: "Russell Carr",
-    price_when_new: "≈£60,000–£75,000",
-    current_value_range: "£60,000–£90,000",
-    model_type: "sports car",
-    tags: [
-      "modern",
-      "sports-car",
-      "lightweight",
-      "rwd",
-      "manual",
-      "performance"
-    ],
-    notable_details: [
-      "Represents the end of Lotus’s internal combustion era.",
-      "More refined and luxurious than previous Lotus models."
-    ],
-    fun_facts: [
-      "Shares some development DNA with AMG for the I4 engine.",
-      "Designed to appeal to both purists and newcomers to the brand."
-    ],
-    notable_achievements: [
-      "Praised for its handling balance and steering feel.",
-      "Considered a return to form for Lotus in the modern era."
-    ],
-    variants: [
-      { name: "Emira V6", years: "2021–present", engine: "3.5L supercharged V6" },
-      { name: "Emira I4", years: "2023–present", engine: "2.0L turbo I4" }
-    ],
-    hero_image: "images/cars/lotus/emira/hero.jpg",
-    image_gallery: [
-      "images/cars/lotus/emira/1.jpg",
-      "images/cars/lotus/emira/2.jpg",
-      "images/cars/lotus/emira/3.jpg"
-    ]
-  },
+// 12. Lotus — Emira
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Sports / Performance",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Emira",
+  model_slug: "emira",
+  model_summary: "Lotus’s final petrol-powered sports car, blending modern refinement with classic lightweight handling.",
+  years_produced: "2021–present",
+  engine: "3.5L supercharged V6",
+  horsepower: 400,
+  top_speed_mph: 180,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "6-speed manual or automatic",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£60,000–£75,000",
+  current_value_range: "£60,000–£90,000",
+  model_type: "sports car",
+  tags: ["modern", "sports-car", "lightweight", "rwd", "manual", "performance"],
+  notable_details: [
+    "Represents the end of Lotus’s internal combustion era.",
+    "More refined and luxurious than previous Lotus models."
+  ],
+  fun_facts: [
+    "Shares some development DNA with AMG for the I4 engine.",
+    "Designed to appeal to both purists and newcomers to the brand."
+  ],
+  notable_achievements: [
+    "Praised for its handling balance and steering feel.",
+    "Considered a return to form for Lotus in the modern era."
+  ],
+  variants: [
+    { name: "Emira V6", years: "2021–present", engine: "3.5L supercharged V6" },
+    { name: "Emira I4", years: "2023–present", engine: "2.0L turbo I4" }
+  ],
+  hero_image: "images/cars/lotus/emira/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/emira/1.jpg",
+    "images/cars/lotus/emira/2.jpg",
+    "images/cars/lotus/emira/3.jpg"
+  ]
+},
+
+// Lotus — Emira AMG I4
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Modern Sports Car",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Emira AMG I4",
+  model_slug: "emira-i4",
+  model_summary: "The AMG-powered variant of the Emira, featuring a turbocharged four-cylinder engine co-developed with Mercedes-AMG for sharper response and reduced weight.",
+  years_produced: "2023–present",
+  engine: "2.0L turbocharged I4",
+  horsepower: "360–365",
+  top_speed_mph: 171,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "8-speed DCT",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£72,000–£80,000",
+  current_value_range: "£70,000–£85,000",
+  model_type: "sports car",
+  tags: ["modern", "turbo", "amg", "lightweight"],
+  notable_details: [
+    "Uses the same M139 engine found in AMG’s top performance models.",
+    "Offers quicker shifts and sharper throttle response than the V6 Emira."
+  ],
+  fun_facts: [
+    "The most fuel-efficient Emira variant.",
+    "Lotus tuned the AMG engine to deliver a more linear powerband."
+  ],
+  notable_achievements: [
+    "Praised for its balance of performance and efficiency.",
+    "Considered the more 'modern' interpretation of the Emira."
+  ],
+  variants: [
+    { name: "Emira AMG I4", years: "2023–present", engine: "2.0L turbo I4" }
+  ],
+  hero_image: "images/cars/lotus/emira-i4/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/emira-i4/1.jpg",
+    "images/cars/lotus/emira-i4/2.jpg",
+    "images/cars/lotus/emira-i4/3.jpg"
+  ]
+},
+
+// Lotus — Evora GT
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Grand Touring Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Evora GT",
+  model_slug: "evora-gt",
+  model_summary: "The final and most powerful evolution of the Evora line, blending touring comfort with Lotus’s signature lightweight handling.",
+  years_produced: "2020–2021",
+  engine: "3.5L supercharged V6",
+  horsepower: "416–430",
+  top_speed_mph: 188,
+  body_style: "2+2 coupé",
+  drivetrain: "RWD",
+  transmission: "6-speed manual or automatic",
+  seating: "2 or 2+2",
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£90,000–£110,000",
+  current_value_range: "£80,000–£120,000",
+  model_type: "grand touring sports car",
+  tags: ["gt", "supercharged", "modern"],
+  notable_details: [
+    "Final ICE Lotus sold in North America.",
+    "Optional carbon packs significantly reduced weight."
+  ],
+  fun_facts: [
+    "One of the last analog-feeling sports cars of the 2020s.",
+    "Praised for its steering feel and chassis balance."
+  ],
+  notable_achievements: [
+    "Regarded as the best long-distance Lotus ever built.",
+    "A favorite among purist drivers."
+  ],
+  variants: [
+    { name: "Evora GT Manual", years: "2020–2021", engine: "416 hp V6" },
+    { name: "Evora GT Automatic", years: "2020–2021", engine: "416 hp V6" }
+  ],
+  hero_image: "images/cars/lotus/evora-gt/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/evora-gt/1.jpg",
+    "images/cars/lotus/evora-gt/2.jpg",
+    "images/cars/lotus/evora-gt/3.jpg"
+  ]
+},
+
+// Lotus — Evora 400
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Grand Touring Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Evora 400",
+  model_slug: "evora-400",
+  model_summary: "A major performance leap for the Evora line, offering 400 horsepower and improved refinement while retaining Lotus’s lightweight ethos.",
+  years_produced: "2015–2020",
+  engine: "3.5L supercharged V6",
+  horsepower: "394–400",
+  top_speed_mph: 186,
+  body_style: "2+2 coupé",
+  drivetrain: "RWD",
+  transmission: "6-speed manual or automatic",
+  seating: "2 or 2+2",
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£72,000–£82,000",
+  current_value_range: "£50,000–£70,000",
+  model_type: "grand touring sports car",
+  tags: ["gt", "supercharged"],
+  fun_facts: [
+    "The Evora 400 was 22 kg lighter than the Evora S.",
+    "Featured a completely redesigned interior."
+  ],
+  notable_achievements: [
+    "Marked Lotus’s return to higher-performance GT cars.",
+    "Received praise for its improved usability."
+  ],
+  variants: [
+    { name: "Evora 400", years: "2015–2020", engine: "400 hp V6" }
+  ],
+  hero_image: "images/cars/lotus/evora-400/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/evora-400/1.jpg",
+    "images/cars/lotus/evora-400/2.jpg",
+    "images/cars/lotus/evora-400/3.jpg"
+  ]
+},
+
+// Lotus — Exige Sport 410
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Track / Performance",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Exige Sport 410",
+  model_slug: "exige-sport-410",
+  model_summary: "A track-focused evolution of the Exige platform, combining a supercharged V6 with extreme aerodynamics and Lotus’s signature lightweight chassis.",
+  years_produced: "2018–2021",
+  engine: "3.5L supercharged V6",
+  horsepower: "405–410",
+  top_speed_mph: 180,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "6-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£85,000–£100,000",
+  current_value_range: "£75,000–£110,000",
+  model_type: "track-focused sports car",
+  tags: ["track", "lightweight", "supercharged"],
+  fun_facts: [
+    "Generates over 150 kg of downforce at top speed.",
+    "Weighs under 2,500 lbs."
+  ],
+  notable_achievements: [
+    "One of the most extreme road-legal Lotus models ever built."
+  ],
+  variants: [
+    { name: "Sport 410", years: "2018–2021", engine: "410 hp V6" }
+  ],
+  hero_image: "images/cars/lotus/exige-sport-410/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/exige-sport-410/1.jpg",
+    "images/cars/lotus/exige-sport-410/2.jpg",
+    "images/cars/lotus/exige-sport-410/3.jpg"
+  ]
+},
+
+// Lotus — Exige Cup 430
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Track / Performance",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Exige Cup 430",
+  model_slug: "exige-cup-430",
+  model_summary: "The most extreme Exige ever built, combining a 430 hp supercharged V6 with aggressive aero and race-ready components.",
+  years_produced: "2017–2021",
+  engine: "3.5L supercharged V6",
+  horsepower: "424–430",
+  top_speed_mph: 180,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "6-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£100,000–£120,000",
+  current_value_range: "£90,000–£140,000",
+  model_type: "track-focused sports car",
+  tags: ["track", "supercharged", "limited"],
+  notable_details: [
+    "Features Öhlins dampers and AP Racing brakes as standard.",
+    "One of the highest power-to-weight ratios of any Lotus."
+  ],
+  fun_facts: [
+    "Nicknamed the 'Lotus GT3 car for the road'."
+  ],
+  notable_achievements: [
+    "Fastest road-legal Lotus around Hethel at launch."
+  ],
+  variants: [
+    { name: "Cup 430", years: "2017–2021", engine: "430 hp V6" }
+  ],
+  hero_image: "images/cars/lotus/exige-cup-430/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/exige-cup-430/1.jpg",
+    "images/cars/lotus/exige-cup-430/2.jpg",
+    "images/cars/lotus/exige-cup-430/3.jpg"
+  ]
+},
+
+// Lotus — Elise Cup 250
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Lightweight Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Elise Cup 250",
+  model_slug: "elise-cup-250",
+  model_summary: "A lightweight, track-ready evolution of the Elise, offering razor-sharp handling and a supercharged four-cylinder engine.",
+  years_produced: "2016–2021",
+  engine: "1.8L supercharged I4",
+  horsepower: "243–250",
+  top_speed_mph: 154,
+  body_style: "2-door roadster",
+  drivetrain: "RWD",
+  transmission: "6-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Julian Thomson",
+  price_when_new: "≈£45,000–£55,000",
+  current_value_range: "£40,000–£65,000",
+  model_type: "lightweight sports car",
+  tags: ["lightweight", "supercharged"],
+  fun_facts: [
+    "Weighs under 900 kg.",
+    "Carbon aero pieces were optional to reduce weight further."
+  ],
+  notable_achievements: [
+    "One of the last Elise models before production ended in 2021."
+  ],
+  variants: [
+    { name: "Cup 250", years: "2016–2021", engine: "243–250 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/elise-cup-250/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/elise-cup-250/1.jpg",
+    "images/cars/lotus/elise-cup-250/2.jpg",
+    "images/cars/lotus/elise-cup-250/3.jpg"
+  ]
+},
+
+// Lotus — Elise Sport 240 Final Edition
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Lightweight Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Elise Sport 240 Final Edition",
+  model_slug: "elise-sport-240",
+  model_summary: "The final evolution of the Elise platform, offering improved power, reduced weight, and special-edition features to celebrate the end of production.",
+  years_produced: "2021",
+  engine: "1.8L supercharged I4",
+  horsepower: "240–243",
+  top_speed_mph: 151,
+  body_style: "2-door roadster",
+  drivetrain: "RWD",
+  transmission: "6-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Julian Thomson",
+  price_when_new: "≈£45,000–£52,000",
+  current_value_range: "£50,000–£70,000",
+  model_type: "lightweight sports car",
+  tags: ["final-edition", "lightweight"],
+  notable_details: [
+    "Features a redesigned digital dash and lightweight forged wheels."
+  ],
+  fun_facts: [
+    "One of the last ICE Lotus models ever produced."
+  ],
+  notable_achievements: [
+    "A collector favorite due to its 'Final Edition' status."
+  ],
+  variants: [
+    { name: "Sport 240 Final Edition", years: "2021", engine: "240 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/elise-sport-240/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/elise-sport-240/1.jpg",
+    "images/cars/lotus/elise-sport-240/2.jpg",
+    "images/cars/lotus/elise-sport-240/3.jpg"
+  ]
+},
+
+// Lotus — Evija
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Electric Hypercar",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Evija",
+  model_slug: "evija",
+  model_summary: "Lotus’s first fully electric hypercar, delivering extreme power, advanced aerodynamics, and a design inspired by Le Mans prototypes.",
+  years_produced: "2020–present",
+  engine: "Quad electric motors",
+  horsepower: "1970–2000",
+  top_speed_mph: 200,
+  body_style: "2-door coupé",
+  drivetrain: "AWD",
+  transmission: "Single-speed",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Russell Carr",
+  price_when_new: "≈£2,000,000",
+  current_value_range: "£2,000,000+",
+  model_type: "electric hypercar",
+  tags: ["electric", "hypercar", "awd", "limited-production"],
+  notable_details: [
+    "Limited to just 130 units worldwide.",
+    "Features a Venturi tunnel aerodynamic design inspired by endurance racing."
+  ],
+  fun_facts: [
+    "One of the most powerful production cars ever built.",
+    "Name means 'the first in existence'."
+  ],
+  notable_achievements: [
+    "Lotus’s first fully electric vehicle.",
+    "Set new benchmarks for power-to-weight ratio in EV hypercars."
+  ],
+  variants: [
+    { name: "Evija", years: "2020–present", engine: "Quad-motor EV" }
+  ],
+  hero_image: "images/cars/lotus/evija/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/evija/1.jpg",
+    "images/cars/lotus/evija/2.jpg",
+    "images/cars/lotus/evija/3.jpg"
+  ]
+},
+
+// Lotus — Eletre
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Electric SUV",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Eletre",
+  model_slug: "eletre",
+  model_summary: "Lotus’s first electric hyper-SUV, blending performance, practicality, and advanced technology in a bold new direction for the brand.",
+  years_produced: "2023–present",
+  engine: "Dual or triple electric motors",
+  horsepower: "603–905",
+  top_speed_mph: 165,
+  body_style: "5-door SUV",
+  drivetrain: "AWD",
+  transmission: "Single-speed",
+  seating: "4 or 5",
+  production_location: "Wuhan, China",
+  designer: "Ben Payne",
+  price_when_new: "≈£90,000–£120,000",
+  current_value_range: "£85,000–£115,000",
+  model_type: "electric SUV",
+  tags: ["electric", "suv", "awd"],
+  notable_details: [
+    "Features LIDAR-based autonomous driving hardware.",
+    "Represents Lotus’s first mass-market EV."
+  ],
+  fun_facts: [
+    "The fastest-accelerating Lotus SUV ever made.",
+    "Interior design inspired by modern architecture."
+  ],
+  notable_achievements: [
+    "Expanded Lotus into the global luxury EV market.",
+    "Praised for combining practicality with Lotus handling DNA."
+  ],
+  variants: [
+    { name: "Eletre S", years: "2023–present", engine: "603 hp dual-motor" },
+    { name: "Eletre R", years: "2023–present", engine: "905 hp tri-motor" }
+  ],
+  hero_image: "images/cars/lotus/eletre/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/eletre/1.jpg",
+    "images/cars/lotus/eletre/2.jpg",
+    "images/cars/lotus/eletre/3.jpg"
+  ]
+},
+
+// Lotus — Emeya
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Electric Grand Tourer",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "modern",
+  model: "Emeya",
+  model_slug: "emeya",
+  model_summary: "A high-performance electric grand tourer combining luxury, speed, and advanced aerodynamics, positioned as Lotus’s electric flagship sedan.",
+  years_produced: "2024–present",
+  engine: "Dual or triple electric motors",
+  horsepower: "603–905",
+  top_speed_mph: 159,
+  body_style: "4-door GT sedan",
+  drivetrain: "AWD",
+  transmission: "Single-speed",
+  seating: 5,
+  production_location: "Wuhan, China",
+  designer: "Ben Payne",
+  price_when_new: "≈£95,000–£130,000",
+  current_value_range: "£90,000–£125,000",
+  model_type: "electric grand tourer",
+  tags: ["electric", "gt", "luxury"],
+  notable_details: [
+    "Features an active rear diffuser and active aero surfaces.",
+    "Interior uses sustainable materials including recycled fibers."
+  ],
+  fun_facts: [
+    "Shares its platform with the Eletre SUV.",
+    "Designed to compete with high-end electric GTs."
+  ],
+  notable_achievements: [
+    "Praised for its blend of comfort and performance.",
+    "One of the quickest electric sedans in its class."
+  ],
+  variants: [
+    { name: "Emeya S", years: "2024–present", engine: "603 hp dual-motor" },
+    { name: "Emeya R", years: "2024–present", engine: "905 hp tri-motor" }
+  ],
+  hero_image: "images/cars/lotus/emeya/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/emeya/1.jpg",
+    "images/cars/lotus/emeya/2.jpg",
+    "images/cars/lotus/emeya/3.jpg"
+  ]
+},
+// Lotus — Esprit V8
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Supercar",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Esprit V8",
+  model_slug: "esprit-v8",
+  model_summary: "The final and most powerful evolution of the Esprit line, featuring a twin‑turbocharged V8 and exotic wedge styling.",
+  years_produced: "1996–2004",
+  engine: "3.5L twin‑turbo V8",
+  horsepower: "350–360",
+  top_speed_mph: 175,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "5-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Peter Stevens",
+  price_when_new: "≈£60,000–£75,000",
+  current_value_range: "£45,000–£75,000",
+  model_type: "supercar",
+  tags: ["classic", "supercar", "turbo"],
+  notable_details: [
+    "Lotus designed the V8 engine entirely in-house.",
+    "One of the most recognizable British supercars of the 1990s."
+  ],
+  fun_facts: [
+    "James Bond famously drove an Esprit in multiple films.",
+    "The V8 was originally engineered to handle far more power."
+  ],
+  notable_achievements: [
+    "A cult classic among 90s supercar enthusiasts."
+  ],
+  variants: [
+    { name: "Esprit V8", years: "1996–2004", engine: "350 hp V8" }
+  ],
+  hero_image: "images/cars/lotus/esprit-v8/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/esprit-v8/1.jpg",
+    "images/cars/lotus/esprit-v8/2.jpg",
+    "images/cars/lotus/esprit-v8/3.jpg"
+  ]
+},
+
+// Lotus — Esprit Turbo HC
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Esprit Turbo HC",
+  model_slug: "esprit-turbo-hc",
+  model_summary: "A high-compression turbocharged version of the Esprit, offering improved performance and sharper throttle response.",
+  years_produced: "1986–1987",
+  engine: "2.2L turbocharged I4",
+  horsepower: "215–220",
+  top_speed_mph: 152,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "5-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Peter Stevens",
+  price_when_new: "≈£25,000",
+  current_value_range: "£20,000–£35,000",
+  model_type: "sports car",
+  tags: ["turbo", "classic"],
+  fun_facts: [
+    "HC stands for 'High Compression'.",
+    "One of the rarest Esprit variants."
+  ],
+  notable_achievements: [
+    "Praised for improved mid-range torque over earlier Esprit Turbos."
+  ],
+  variants: [
+    { name: "Esprit Turbo HC", years: "1986–1987", engine: "215 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/esprit-turbo-hc/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/esprit-turbo-hc/1.jpg",
+    "images/cars/lotus/esprit-turbo-hc/2.jpg",
+    "images/cars/lotus/esprit-turbo-hc/3.jpg"
+  ]
+},
+
+// Lotus — Esprit S1
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Esprit S1",
+  model_slug: "esprit-s1",
+  model_summary: "The original Esprit, famous for its wedge design and its appearance as a submarine in the James Bond film 'The Spy Who Loved Me'.",
+  years_produced: "1976–1978",
+  engine: "2.0L I4",
+  horsepower: "160–165",
+  top_speed_mph: 133,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "5-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Giorgetto Giugiaro",
+  price_when_new: "≈£8,000",
+  current_value_range: "£35,000–£70,000",
+  model_type: "sports car",
+  tags: ["classic", "giugiaro", "bond-car"],
+  notable_details: [
+    "One of Giugiaro’s most iconic wedge designs."
+  ],
+  fun_facts: [
+    "The Bond submarine car was a modified Esprit S1 shell.",
+    "Early models were extremely lightweight."
+  ],
+  notable_achievements: [
+    "Became a pop culture icon thanks to James Bond."
+  ],
+  variants: [
+    { name: "Esprit S1", years: "1976–1978", engine: "160 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/esprit-s1/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/esprit-s1/1.jpg",
+    "images/cars/lotus/esprit-s1/2.jpg",
+    "images/cars/lotus/esprit-s1/3.jpg"
+  ]
+},
+
+// Lotus — Elan S1
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Lightweight",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Elan S1",
+  model_slug: "elan-s1",
+  model_summary: "A lightweight roadster that set new standards for handling and became one of Lotus’s most influential designs.",
+  years_produced: "1962–1964",
+  engine: "1.6L I4",
+  horsepower: "90–105",
+  top_speed_mph: 118,
+  body_style: "2-door roadster",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 2,
+  production_location: "Cheshunt, England",
+  designer: "Ron Hickman",
+  price_when_new: "≈£1,500",
+  current_value_range: "£25,000–£45,000",
+  model_type: "lightweight sports car",
+  tags: ["classic", "lightweight"],
+  fun_facts: [
+    "The Elan’s handling inspired the original Mazda MX‑5.",
+    "Used a steel backbone chassis with a fiberglass body."
+  ],
+  notable_achievements: [
+    "Considered one of the best-handling cars of the 1960s."
+  ],
+  variants: [
+    { name: "Elan S1", years: "1962–1964", engine: "90–105 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/elan-s1/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/elan-s1/1.jpg",
+    "images/cars/lotus/elan-s1/2.jpg",
+    "images/cars/lotus/elan-s1/3.jpg"
+  ]
+},
+
+// Lotus — Elan Sprint
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Lightweight",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Elan Sprint",
+  model_slug: "elan-sprint",
+  model_summary: "The final and most powerful version of the classic Elan, featuring a twin-cam engine and distinctive two-tone paint.",
+  years_produced: "1971–1973",
+  engine: "1.6L twin-cam I4",
+  horsepower: "126–130",
+  top_speed_mph: 121,
+  body_style: "2-door roadster",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Ron Hickman",
+  price_when_new: "≈£2,000",
+  current_value_range: "£35,000–£55,000",
+  model_type: "lightweight sports car",
+  tags: ["classic", "lightweight", "twin-cam"],
+  fun_facts: [
+    "Two-tone paint became a signature of the Sprint.",
+    "One of the quickest small sports cars of its era."
+  ],
+  notable_achievements: [
+    "Highly sought after by collectors."
+  ],
+  variants: [
+    { name: "Elan Sprint", years: "1971–1973", engine: "126–130 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/elan-sprint/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/elan-sprint/1.jpg",
+    "images/cars/lotus/elan-sprint/2.jpg",
+    "images/cars/lotus/elan-sprint/3.jpg"
+  ]
+},
+
+// Lotus — Europa Special
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Sports",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Europa Special",
+  model_slug: "europa-special",
+  model_summary: "The most powerful and refined version of the Europa, featuring a lightweight chassis and mid-engine layout.",
+  years_produced: "1972–1975",
+  engine: "1.6L I4",
+  horsepower: "105–126",
+  top_speed_mph: 123,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Ron Hickman",
+  price_when_new: "≈£2,200",
+  current_value_range: "£20,000–£40,000",
+  model_type: "sports car",
+  tags: ["classic", "mid-engine"],
+  fun_facts: [
+    "One of the earliest affordable mid-engine sports cars.",
+    "The Special edition celebrated Lotus’s F1 success."
+  ],
+  notable_achievements: [
+    "Praised for its handling and lightweight design."
+  ],
+  variants: [
+    { name: "Europa Special", years: "1972–1975", engine: "105–126 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/europa-special/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/europa-special/1.jpg",
+    "images/cars/lotus/europa-special/2.jpg",
+    "images/cars/lotus/europa-special/3.jpg"
+  ]
+},
+
+// Lotus — Elite (Type 14)
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic GT",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Elite (Type 14)",
+  model_slug: "elite-type-14",
+  model_summary: "A pioneering lightweight GT car featuring a fiberglass monocoque body and elegant aerodynamic design.",
+  years_produced: "1957–1963",
+  engine: "1.2L I4",
+  horsepower: "75–85",
+  top_speed_mph: 112,
+  body_style: "2-door coupé",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 2,
+  production_location: "Cheshunt, England",
+  designer: "Peter Kirwan-Taylor",
+  price_when_new: "≈£1,900",
+  current_value_range: "£50,000–£90,000",
+  model_type: "grand tourer",
+  tags: ["classic", "lightweight", "fiberglass"],
+  fun_facts: [
+    "One of the first production cars with a fiberglass monocoque.",
+    "Won its class at Le Mans multiple times."
+  ],
+  notable_achievements: [
+    "A landmark in lightweight engineering."
+  ],
+  variants: [
+    { name: "Elite Type 14", years: "1957–1963", engine: "75–85 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/elite-type-14/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/elite-type-14/1.jpg",
+    "images/cars/lotus/elite-type-14/2.jpg",
+    "images/cars/lotus/elite-type-14/3.jpg"
+  ]
+},
+
+// Lotus — Eleven
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Motorsport",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Eleven",
+  model_slug: "eleven",
+  model_summary: "A lightweight racing car designed for endurance competition, known for its aerodynamic body and impressive performance.",
+  years_produced: "1956–1958",
+  engine: "1.1L–1.5L I4",
+  horsepower: "75–100",
+  top_speed_mph: 140,
+  body_style: "open-top race car",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 1,
+  production_location: "Hornsey, England",
+  designer: "Frank Costin",
+  price_when_new: "≈£1,200",
+  current_value_range: "£120,000–£250,000",
+  model_type: "race car",
+  tags: ["motorsport", "lightweight"],
+  fun_facts: [
+    "Used advanced aerodynamics for its time.",
+    "Won its class at Le Mans."
+  ],
+  notable_achievements: [
+    "Dominated small-displacement racing categories."
+  ],
+  variants: [
+    { name: "Eleven Le Mans", years: "1956–1958", engine: "75–100 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/eleven/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/eleven/1.jpg",
+    "images/cars/lotus/eleven/2.jpg",
+    "images/cars/lotus/eleven/3.jpg"
+  ]
+},
+
+// Lotus — Seven Series 2
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Classic Lightweight",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "classic",
+  model: "Seven Series 2",
+  model_slug: "seven-series-2",
+  model_summary: "A minimalist lightweight sports car that became the foundation for the modern Caterham Seven.",
+  years_produced: "1960–1968",
+  engine: "1.0L–1.6L I4",
+  horsepower: "40–85",
+  top_speed_mph: 100,
+  body_style: "open-top roadster",
+  drivetrain: "RWD",
+  transmission: "4-speed manual",
+  seating: 2,
+  production_location: "Cheshunt, England",
+  designer: "Colin Chapman",
+  price_when_new: "≈£600",
+  current_value_range: "£20,000–£40,000",
+  model_type: "lightweight sports car",
+  tags: ["lightweight", "minimalist"],
+  fun_facts: [
+    "The Seven’s design philosophy still lives on in Caterham models.",
+    "One of the purest expressions of Colin Chapman’s 'simplify, then add lightness' philosophy."
+  ],
+  notable_achievements: [
+    "A motorsport favorite for decades."
+  ],
+  variants: [
+    { name: "Seven S2", years: "1960–1968", engine: "40–85 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/seven-series-2/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/seven-series-2/1.jpg",
+    "images/cars/lotus/seven-series-2/2.jpg",
+    "images/cars/lotus/seven-series-2/3.jpg"
+  ]
+},
+// Lotus — Carlton
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "High-Performance Sedan",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "special",
+  model: "Carlton",
+  model_slug: "carlton",
+  model_summary: "A legendary high-performance sedan developed by Lotus for Vauxhall/Opel, famous for its supercar-level speed and controversy in the early 1990s.",
+  years_produced: "1990–1992",
+  engine: "3.6L twin-turbocharged I6",
+  horsepower: "377–382",
+  top_speed_mph: 176,
+  body_style: "4-door sedan",
+  drivetrain: "RWD",
+  transmission: "6-speed manual",
+  seating: 5,
+  production_location: "Hethel, England",
+  designer: "Lotus Engineering",
+  price_when_new: "≈£48,000",
+  current_value_range: "£60,000–£120,000",
+  model_type: "super-sedan",
+  tags: ["twin-turbo", "super-sedan", "classic"],
+  notable_details: [
+    "Once the fastest four-door production car in the world.",
+    "Its top speed caused political controversy in the UK."
+  ],
+  fun_facts: [
+    "Police forces complained it was too fast to catch.",
+    "Developed jointly with Opel and Vauxhall."
+  ],
+  notable_achievements: [
+    "A cult icon among performance sedan enthusiasts."
+  ],
+  variants: [
+    { name: "Lotus Carlton", years: "1990–1992", engine: "377–382 hp I6" }
+  ],
+  hero_image: "images/cars/lotus/carlton/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/carlton/1.jpg",
+    "images/cars/lotus/carlton/2.jpg",
+    "images/cars/lotus/carlton/3.jpg"
+  ]
+},
+
+// Lotus — 340R
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Special Edition Lightweight",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "special",
+  model: "340R",
+  model_slug: "340r",
+  model_summary: "A radical, doorless, roofless track-focused special edition based on the Elise, limited to just 340 units.",
+  years_produced: "2000",
+  engine: "1.8L naturally aspirated I4",
+  horsepower: "177–190",
+  top_speed_mph: 133,
+  body_style: "open-body track car",
+  drivetrain: "RWD",
+  transmission: "5-speed manual",
+  seating: 2,
+  production_location: "Hethel, England",
+  designer: "Julian Thomson",
+  price_when_new: "≈£35,000",
+  current_value_range: "£45,000–£70,000",
+  model_type: "track car",
+  tags: ["lightweight", "limited-edition", "track"],
+  notable_details: [
+    "No roof, no doors, no windshield — pure Lotus minimalism.",
+    "Limited to exactly 340 units, matching its name."
+  ],
+  fun_facts: [
+    "One of the most extreme road-legal Lotus cars ever built.",
+    "Its bodywork was designed to channel airflow around the driver."
+  ],
+  notable_achievements: [
+    "A collector favorite due to its rarity and radical design."
+  ],
+  variants: [
+    { name: "340R", years: "2000", engine: "177–190 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/340r/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/340r/1.jpg",
+    "images/cars/lotus/340r/2.jpg",
+    "images/cars/lotus/340r/3.jpg"
+  ]
+},
+
+// Sunbeam Lotus
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Rally Performance",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "special",
+  model: "Sunbeam Lotus",
+  model_slug: "sunbeam-lotus",
+  model_summary: "A rally-bred hot hatch developed by Lotus for Talbot, known for its Group 2 rally success and lightweight rear-wheel-drive layout.",
+  years_produced: "1979–1981",
+  engine: "2.2L I4",
+  horsepower: "150–155",
+  top_speed_mph: 122,
+  body_style: "3-door hatchback",
+  drivetrain: "RWD",
+  transmission: "5-speed manual",
+  seating: 5,
+  production_location: "Linwood, Scotland / Hethel, England",
+  designer: "Lotus Engineering",
+  price_when_new: "≈£7,000",
+  current_value_range: "£20,000–£40,000",
+  model_type: "rally car",
+  tags: ["rally", "classic", "rwd"],
+  notable_details: [
+    "Built to compete in Group 2 rallying.",
+    "Lotus tuned the engine and suspension for competition use."
+  ],
+  fun_facts: [
+    "Won the 1981 World Rally Championship manufacturers’ title.",
+    "One of the few RWD hot hatches ever made."
+  ],
+  notable_achievements: [
+    "A rally legend and one of Lotus’s most successful motorsport collaborations."
+  ],
+  variants: [
+    { name: "Sunbeam Lotus", years: "1979–1981", engine: "150–155 hp I4" }
+  ],
+  hero_image: "images/cars/lotus/sunbeam-lotus/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/sunbeam-lotus/1.jpg",
+    "images/cars/lotus/sunbeam-lotus/2.jpg",
+    "images/cars/lotus/sunbeam-lotus/3.jpg"
+  ]
+},
+
 
   // 13. McLaren — 720S
   {
