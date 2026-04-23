@@ -1,87 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brand Details</title>
-
-  <!-- DARK THEME CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-page="brand">
 
-<header class="site-header">
-  <h1 id="brandName"></h1>
-</header>
-
-<div class="page-container">
-
-  <!-- BRAND LOGO -->
-  <div style="text-align:center; margin-top:20px;">
-    <img id="brandLogo" style="max-width:180px; filter:brightness(0.9);" />
+  <!-- BRAND HEADER -->
+  <div class="brand-header">
+    <img id="brand-logo" class="brand-logo" alt="Brand Logo">
+    <h1 id="brand-name"></h1>
+    <p id="brand-history"></p>
   </div>
 
-  <!-- BRAND HISTORY -->
-  <div class="brand-section-box" style="margin-top:30px;">
-    <h2 class="section-title">Brand History</h2>
-    <p id="brandHistory" style="line-height:1.6; color:var(--text-light);"></p>
-  </div>
+  <div class="page-container">
 
-  <!-- MODELS -->
-  <h2 class="section-title">Models</h2>
-  <div class="brand-section-box">
-    <div id="modelGrid" class="brand-grid"></div>
-  </div>
+    <!-- MODERN MODELS -->
+    <h2 class="section-title">Modern & Electric Models</h2>
+    <div id="modern-models" class="model-grid"></div>
 
+    <!-- CLASSIC MODELS -->
+    <h2 class="section-title">Classic Models</h2>
+    <div id="classic-models" class="model-grid"></div>
+
+    <!-- SPECIAL MODELS -->
+    <h2 class="section-title">Special & Rare Models</h2>
+    <div id="special-models" class="model-grid"></div>
+
+    <div class="details-section" style="text-align:center; margin-top: 40px;">
+  <button class="back-button" onclick="window.location.href='brands.html'">
+    ← Back to Brands
+  </button>
 </div>
 
-<!-- MUST LOAD IN THIS ORDER -->
-<script src="data/cars.js"></script>
-<script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const brandSlug = urlParams.get("brand");
+  </div>
 
-  const brandModels = britishCars.filter(car => car.slug === brandSlug);
-
-  if (brandModels.length === 0) {
-    document.body.innerHTML = "<h2 style='text-align:center; color:white;'>Brand not found.</h2>";
-  }
-
-  const brandName = brandModels[0].manufacturer;
-  const brandLogo = brandLogos[brandSlug];
-  const brandTheme = brandThemes[brandSlug];
-  const history = brandHistory[brandSlug];
-
-  document.getElementById("brandName").textContent = brandName;
-  document.getElementById("brandLogo").src = brandLogo;
-  document.getElementById("brandHistory").innerHTML = history.replace(/\n/g, "<br>");
-
-  // Apply brand accent color
-  document.documentElement.style.setProperty("--brand-color", brandTheme);
-
-  const grid = document.getElementById("modelGrid");
-
-  brandModels.forEach(model => {
-    const card = document.createElement("div");
-    card.className = "brand-card";
-    card.onclick = () => {
-      window.location.href = `details.html?brand=${model.slug}&model=${model.model_slug}`;
-    };
-
-    card.innerHTML = `
-      <div class="brand-card-header">
-        <img src="${model.hero_image}" alt="${model.model}" class="brand-card-logo" style="max-height:120px; border-radius:6px;" />
-      </div>
-      <div class="brand-card-body">
-        <h3>${model.model}</h3>
-        <p class="brand-meta">Years: ${model.years_produced}</p>
-      </div>
-    `;
-
-    grid.appendChild(card);
-  });
-</script>
+  <!-- GLOBAL SCRIPTS -->
+  <script src="data/cars.js"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>

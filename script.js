@@ -1,97 +1,291 @@
-// script.js
-// Shared logic for brands.html and search functionality.
+// ===============================
+// British Car App — script.js
+// Handles brand page + model page routing and rendering
+// ===============================
 
-// ========== RENDER BRAND GRID (MODERN + CLASSIC) ==========
-function renderBrandGrid() {
-  const modernBox = document.getElementById("modernBrands");
-  const classicBox = document.getElementById("classicBrands");
+// -------------------------------
+// NAVIGATION HELPERS
+// -------------------------------
 
-  if (!modernBox || !classicBox) return;
+// Navigate to a brand page
+function goToBrand(brandSlug) {
+  window.location.href = `brand.html?brand=${brandSlug}`;
+}
 
-  Object.keys(brandLogos).forEach(slug => {
-    const logo = brandLogos[slug];
-    const nameFromCars = britishCars.find(car => car.slug === slug)?.manufacturer;
-    const brandName = nameFromCars || slug.replace("-", " ").toUpperCase();
-    const themeColor = brandThemes[slug] || "#333";
-    const founded = brand_founded[slug];
-    const status = brandCategories[slug]; // "modern" or "classic"
+// Navigate to a model details page
+function goToModel(brandSlug, modelSlug) {
+  window.location.href = `details.html?brand=${brandSlug}&model=${modelSlug}`;
+}
 
-    const card = document.createElement("div");
-    card.className = "brand-card";
-    card.style.borderTopColor = themeColor;
-    card.onclick = () => {
-      window.location.href = `brand.html?brand=${slug}`;
-    };
+// ===============================
+// SEARCH LOGIC FOR BRANDS PAGE
+// ===============================
 
-    card.innerHTML = `
-      <div class="brand-card-header">
-        <img src="${logo}" alt="${brandName}" class="brand-card-logo" />
-      </div>
-      <div class="brand-card-body">
-        <h3>${brandName}</h3>
-        <p class="brand-meta">
-          Founded: ${founded || "N/A"} • ${status}
-        </p>
+function initBrandSearch() {
+  const input = document.getElementById("searchInput");
+  const resultsBox = document.getElementById("searchResults");
+
+  if (!input || !resultsBox) return; // Not on brands page
+
+  input.addEventListener("input", () => {
+    const query = input.value.toLowerCase().trim();
+
+    if (query.length === 0) {
+      resultsBox.innerHTML = "";
+      resultsBox.style.display = "none";
+      return;
+    }
+
+    // Search brands + models
+    const matches = britishCars.filter(car =>
+      car.manufacturer.toLowerCase().includes(query) ||
+      car.model.toLowerCase().includes(query)
+    );
+
+    if (matches.length === 0) {
+      resultsBox.innerHTML = "<p class='no-results'>No matches found.</p>";
+      resultsBox.style.display = "block";
+      return;
+    }
+
+    // Render results
+    resultsBox.innerHTML = matches.map(car => {
+      const isBrandMatch = car.manufacturer.toLowerCase().includes(query);
+      const isModelMatch = car.model.toLowerCase().includes(query);
+
+      // BRAND RESULT
+      if (isBrandMatch) {
+        return `
+          <div class="search-result"
+               onclick="goToBrand('${car.slug}')">
+            <img src="images/brand-logos/${car.slug}.png" class="search-result-logo">
+            <span>${car.manufacturer}</span>
+          </div>
+        `;
+      }
+
+      // MODEL RESULT
+      return `
+        <div class="search-result"
+             onclick="goToModel('${car.slug}', '${car.model_slug}')">
+          <img src="${car.hero_image}" class="search-result-logo">
+          <span>${car.manufacturer} — ${car.model}</span>
+        </div>
+      `;
+    }).join("");
+
+    resultsBox.style.display = "block";
+  });
+}
+
+
+// ===============================
+// BRAND PAGE LOGIC
+// ===============================
+
+function loadBrandPage() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const brandSlug = urlParams.get("brand");
+
+  // Filter all models for this brand
+  const models = britishCars.filter(car => car.slug === brandSlug);
+
+  if (models.length === 0) {
+    console.error("Brand not found:", brandSlug);
+    return;
+  }
+
+  // Brand metadata (from first model)
+  const brand = models[0];
+
+  // Populate brand header
+  document.getElementById("brand-name").textContent = brand.manufacturer;
+  document.getElementById("brand-logo").src = `images/brand-logos/${brand.slug}.png`;
+  document.getElementById("brand-history").textContent = brand.brand_history || "";
+
+  // Group models by heritage_group
+  const modernModels = models.filter(m => m.heritage_group === "modern");
+  const classicModels = models.filter(m => m.heritage_group === "classic");
+  const specialModels = models.filter(m => m.heritage_group === "special");
+
+  // Render each section
+  renderModelSection("modern-models", modernModels);
+  renderModelSection("classic-models", classicModels);
+  renderModelSection("special-models", specialModels);
+}
+
+
+
+// -------------------------------
+// RENDER MODEL CARDS FOR BRAND PAGE
+// -------------------------------
+
+function renderModelSection(containerId, models) {
+  const container = document.getElementById(containerId);
+
+  if (!models || models.length === 0) {
+    container.innerHTML = `<p class="empty-note">No models in this category.</p>`;
+    return;
+  }
+
+  container.innerHTML = models.map(model => `
+    <div class="model-card" onclick="goToModel('${model.slug}', '${model.model_slug}')">
+      <img src="${model.hero_image}" alt="${model.model}">
+      <h3>${model.model}</h3>
+    </div>
+  `).join("");
+}
+
+
+
+// ===============================
+// MODEL DETAILS PAGE LOGIC
+// ===============================
+
+function loadModelDetails() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const brandSlug = urlParams.get("brand");
+  const modelSlug = urlParams.get("model");
+
+  // Find the model
+  const model = britishCars.find(
+    car => car.slug === brandSlug && car.model_slug === modelSlug
+  );
+
+  if (!model) {
+    console.error("Model not found:", brandSlug, modelSlug);
+    return;
+  }
+
+  // Populate header
+  document.getElementById("model-name").textContent = model.model;
+  document.getElementById("model-hero").src = model.hero_image;
+
+  // Populate summary
+  document.getElementById("model-summary").textContent = model.model_summary;
+
+  // Populate metadata
+  document.getElementById("model-years").textContent = model.years_produced;
+  document.getElementById("model-engine").textContent = model.engine;
+  document.getElementById("model-horsepower").textContent = model.horsepower;
+  document.getElementById("model-top-speed").textContent = model.top_speed_mph + " mph";
+  document.getElementById("model-body-style").textContent = model.body_style;
+  document.getElementById("model-drivetrain").textContent = model.drivetrain;
+  document.getElementById("model-transmission").textContent = model.transmission;
+  document.getElementById("model-seating").textContent = model.seating;
+  document.getElementById("model-location").textContent = model.production_location;
+  document.getElementById("model-designer").textContent = model.designer;
+  document.getElementById("model-price-new").textContent = model.price_when_new;
+  document.getElementById("model-value-range").textContent = model.current_value_range;
+
+  // Populate variants
+  const variantContainer = document.getElementById("model-variants");
+  variantContainer.innerHTML = model.variants.map(v => `
+    <li>${v.name} (${v.years}) — ${v.engine}</li>
+  `).join("");
+
+// Populate fun facts
+const funFactsContainer = document.getElementById("model-fun-facts");
+funFactsContainer.innerHTML = model.fun_facts.map(f => `
+  <li>${f}</li>
+`).join("");
+
+// Populate achievements
+const achievementsContainer = document.getElementById("model-achievements");
+achievementsContainer.innerHTML = model.notable_achievements.map(a => `
+  <li>${a}</li>
+`).join("");
+
+  // Populate gallery
+  const galleryContainer = document.getElementById("model-gallery");
+  galleryContainer.innerHTML = model.image_gallery.map(img => `
+    <img src="${img}" class="gallery-img" alt="${model.model}">
+  `).join("");
+
+  // Back button
+  document.getElementById("back-to-brand").onclick = () => {
+    goToBrand(model.slug);
+  };
+}
+
+// ===============================
+// MAIN BRANDS PAGE LOGIC
+// ===============================
+
+// Load all brands into Modern / Classic groups
+// ===============================
+// MAIN BRANDS PAGE LOGIC
+// ===============================
+
+function loadBrandsPage() {
+  // Get unique brands from dataset
+  const brands = {};
+
+  britishCars.forEach(car => {
+    if (!brands[car.slug]) {
+      brands[car.slug] = {
+        slug: car.slug,
+        manufacturer: car.manufacturer,
+        brand_history: car.brand_history,
+        logo: `images/brand-logos/${car.slug}.png`,
+        heritage_group: car.heritage_group || "modern"
+      };
+    }
+  });
+
+  const modernContainer = document.getElementById("modernBrands");
+  const classicContainer = document.getElementById("classicBrands");
+
+  // Clear containers
+  modernContainer.innerHTML = "";
+  classicContainer.innerHTML = "";
+
+  // Render each brand card
+  Object.values(brands).forEach(brand => {
+    const card = `
+      <div class="brand-card" onclick="goToBrand('${brand.slug}')">
+        <div class="brand-card-header">
+          <img src="${brand.logo}" class="brand-card-logo" alt="${brand.manufacturer}">
+        </div>
+        <div class="brand-card-body">
+          <h3>${brand.manufacturer}</h3>
+          <p class="brand-meta">${brand.brand_history?.slice(0, 80) || ""}...</p>
+        </div>
       </div>
     `;
 
-    if (status === "modern") {
-      modernBox.appendChild(card);
+    if (brand.heritage_group === "classic") {
+      classicContainer.innerHTML += card;
     } else {
-      classicBox.appendChild(card);
+      modernContainer.innerHTML += card;
     }
   });
 }
 
-// ========== SIMPLE SEARCH (BRANDS + MODELS) ==========
-function setupSearch() {
-  const searchInput = document.getElementById("searchInput");
-  const searchResults = document.getElementById("searchResults");
-  if (!searchInput || !searchResults) return;
 
-  searchInput.addEventListener("input", () => {
-    const query = searchInput.value.toLowerCase().trim();
-    searchResults.innerHTML = "";
 
-    if (!query) {
-      searchResults.style.display = "none";
-      return;
-    }
+// ===============================
+// PAGE INITIALIZATION
+// ===============================
 
-    const matches = britishCars.filter(car => {
-      return (
-        car.manufacturer.toLowerCase().includes(query) ||
-        car.model.toLowerCase().includes(query)
-      );
-    }).slice(0, 10);
-
-    if (matches.length === 0) {
-      searchResults.style.display = "none";
-      return;
-    }
-
-    matches.forEach(car => {
-      const item = document.createElement("div");
-      item.className = "search-result-item";
-      item.textContent = `${car.manufacturer} — ${car.model}`;
-      item.onclick = () => {
-        window.location.href = `details.html?brand=${car.slug}&model=${car.model_slug}`;
-      };
-      searchResults.appendChild(item);
-    });
-
-    searchResults.style.display = "block";
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!searchResults.contains(e.target) && e.target !== searchInput) {
-      searchResults.style.display = "none";
-    }
-  });
-}
-
-// ========== INIT ==========
 document.addEventListener("DOMContentLoaded", () => {
-  renderBrandGrid();
-  setupSearch();
+  const page = document.body.getAttribute("data-page");
+
+  // Brands page (homepage of marques)
+  if (page === "brands") {
+    loadBrandsPage();
+    initBrandSearch();
+  }
+
+  // Individual brand page (Lotus, Aston Martin, etc.)
+  if (page === "brand") {
+    loadBrandPage();
+  }
+
+  // Model details page (Emira, Evija, Esprit, etc.)
+  if (page === "details") {
+    loadModelDetails();
+  }
 });
+
+
