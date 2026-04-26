@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>British Racing Heritage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-page="british-racing">
+
+  <!-- NAVIGATION -->
+  <header class="site-header">
+    <h1 class="site-title">British Car Encyclopedia</h1>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+  
+
+    </nav>
+  </header>
+
+  <!-- HERO BANNER -->
+  <section class="racing-hero">
+    <div class="racing-hero-content">
+      <h1 class="racing-hero-title">British Racing Heritage</h1>
+
+      <!-- GOLD LOTUS 49 SILHOUETTE (SVG OUTLINE) -->
+      <svg class="lotus-silhouette" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet">
+        <path 
+          d="M20 120 Q150 40 300 80 Q450 120 600 60 Q700 30 780 80" 
+          stroke="#D4AF37" 
+          stroke-width="3" 
+          fill="none" 
+          opacity="0.25"
+        />
+      </svg>
+    </div>
+  </section>
+
+  <!-- MAIN PAGE CONTAINER -->
+  <div class="page-container">
+
+    <!-- VIEW TOGGLE (PHASE 2) -->
+<section id="view-toggle-section" class="view-toggle">
+  <button id="timeline-btn" class="toggle-btn active">Timeline View</button>
+  <button id="brand-btn" class="toggle-btn">Brand View</button>
+</section>
+
+
+    <!-- TIMELINE VIEW (PHASE 3) -->
+<section id="timeline-view" class="timeline-container hidden">
+
+  <div class="timeline-scroll">
+    <div class="timeline-era" data-era="1900s">1900s</div>
+    <div class="timeline-era" data-era="1920s">1920s</div>
+    <div class="timeline-era" data-era="1950s">1950s</div>
+    <div class="timeline-era" data-era="1970s">1970s</div>
+    <div class="timeline-era" data-era="1990s">1990s</div>
+    <div class="timeline-era" data-era="modern">Modern Era</div>
+  </div>
+
+  <div id="timeline-details" class="timeline-details">
+    <p class="timeline-placeholder">Select an era to view details.</p>
+  </div>
+
+</section>
+
+
+    <!-- BRAND VIEW (PHASE 4) -->
+<section id="brand-view" class="brand-racing-container hidden">
+
+  <!-- LOTUS -->
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Lotus Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Lotus revolutionized motorsport with lightweight engineering, ground effects, and aerodynamic innovation.
+      Colin Chapman’s philosophy — “Simplify, then add lightness” — changed racing forever.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card" onclick="goToModel('lotus', '49')">Lotus 49</div>
+      <div class="racing-car-card" onclick="goToModel('lotus', '72')">Lotus 72</div>
+      <div class="racing-car-card" onclick="goToModel('lotus', '79')">Lotus 79</div>
+    </div>
+
+    <div class="brand-gallery lotus-gallery">
+      <!-- Phase 4 JS will load images here -->
+    </div>
+  </div>
+
+  <!-- MCLAREN -->
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">McLaren Racing Heritage</h2>
+    <p class="brand-racing-text">
+      McLaren is synonymous with Formula One excellence — from the MP4/4 dominance to modern hybrid innovation.
+      Their engineering precision and driver legacy define British motorsport.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card" onclick="goToModel('mclaren', 'mp4-4')">MP4/4</div>
+      <div class="racing-car-card" onclick="goToModel('mclaren', 'f1-gtr')">F1 GTR</div>
+      <div class="racing-car-card" onclick="goToModel('mclaren', 'mp4-13')">MP4/13</div>
+    </div>
+
+    <div class="brand-gallery mclaren-gallery"></div>
+  </div>
+
+  <!-- JAGUAR -->
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Jaguar Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Jaguar dominated endurance racing with aerodynamic brilliance and raw power.
+      The D‑Type and XJR series remain icons of Le Mans history.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card" onclick="goToModel('jaguar', 'd-type')">D‑Type</div>
+      <div class="racing-car-card" onclick="goToModel('jaguar', 'xjr-9')">XJR‑9</div>
+      <div class="racing-car-card" onclick="goToModel('jaguar', 'xjr-12')">XJR‑12</div>
+    </div>
+
+    <div class="brand-gallery jaguar-gallery"></div>
+  </div>
+
+  <!-- BENTLEY -->
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Bentley Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Bentley’s endurance racing legacy began with the legendary Bentley Boys.
+      Their Speed Six and Speed 8 machines defined British power and durability.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card" onclick="goToModel('bentley', 'speed-six')">Speed Six</div>
+      <div class="racing-car-card" onclick="goToModel('bentley', 'speed-8')">Speed 8</div>
+    </div>
+
+    <div class="brand-gallery bentley-gallery"></div>
+  </div>
+
+</section>
+ 
+
+    <!-- FAMOUS DRIVERS (PHASE 5) -->
+ <section id="famous-drivers-section" class="drivers-section">
+  <h2 class="drivers-title">Famous British Drivers</h2>
+  <div class="drivers-grid">
+    <div class="driver-card" data-driver="clark">
+      <img src="images/drivers/jim-clark.jpg" alt="Jim Clark">
+      <h3>Jim Clark</h3>
+    </div>
+    <div class="driver-card" data-driver="stewart">
+      <img src="images/drivers/jackie-stewart.jpg" alt="Jackie Stewart">
+      <h3>Jackie Stewart</h3>
+    </div>
+    <div class="driver-card" data-driver="hamilton">
+      <img src="images/drivers/lewis-hamilton.jpg" alt="Lewis Hamilton">
+      <h3>Lewis Hamilton</h3>
+    </div>
+    <div class="driver-card" data-driver="moss">
+      <img src="images/drivers/stirling-moss.jpg" alt="Stirling Moss">
+      <h3>Stirling Moss</h3>
+    </div>
+    <div class="driver-card" data-driver="mansell">
+      <img src="images/drivers/nigel-mansell.jpg" alt="Nigel Mansell">
+      <h3>Nigel Mansell</h3>
+    </div>
+  </div>
+
+  <!-- Side Panel -->
+  <div id="driver-panel" class="driver-panel">
+    <button id="driver-panel-close" class="driver-panel-close">×</button>
+    <div id="driver-panel-content"></div>
+  </div>
+  <div id="driver-panel-overlay" class="driver-panel-overlay"></div>
+</section>
+
+
+    <!-- HALL OF FAME (PHASE 6) -->
+<section id="hall-of-fame-section" class="hof-section">
+  <h2 class="hof-title">Hall of Fame</h2>
+
+  <div class="hof-box" onclick="window.location.href='hof-cars.html'">
+    <h3>Legendary Cars</h3>
+    <p>Explore the most iconic British racing machines ever built.</p>
+  </div>
+
+  <div class="hof-box" onclick="window.location.href='hof-drivers.html'">
+    <h3>Legendary Drivers</h3>
+    <p>The greatest British drivers who shaped motorsport history.</p>
+  </div>
+
+  <div class="hof-box" onclick="window.location.href='hof-teams.html'">
+    <h3>Legendary Teams</h3>
+    <p>Discover the British teams that dominated global racing.</p>
+  </div>
+</section>
+ 
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

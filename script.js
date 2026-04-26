@@ -86,7 +86,7 @@ function loadBrandPage() {
 
   const brand = models[0];
 
-    // Apply manufacturer theme colors
+  // Apply manufacturer theme colors
   const theme = brandThemes[brand.slug];
   if (theme) {
     document.documentElement.style.setProperty("--brand-color", theme);
@@ -97,7 +97,7 @@ function loadBrandPage() {
   document.getElementById("brand-name").textContent = brand.manufacturer;
   document.getElementById("brand-logo").src = `images/brand-logos/${brand.slug}.png`;
 
-  // Load brand history from brandHistory object
+  // Load brand history
   document.getElementById("brand-history").textContent =
     brandHistory[brand.slug] || "No history available.";
 
@@ -184,6 +184,7 @@ function loadModelDetails() {
 // ===============================
 // MAIN BRANDS PAGE LOGIC
 // ===============================
+
 function loadBrandsPage() {
   const brands = {};
 
@@ -235,6 +236,214 @@ function loadBrandsPage() {
   });
 }
 
+// ===============================
+// PHASE 2 — VIEW TOGGLE SYSTEM
+// ===============================
+
+function setupViewToggle() {
+  const timelineBtn = document.getElementById("timeline-btn");
+  const brandBtn = document.getElementById("brand-btn");
+
+  const timelineView = document.getElementById("timeline-view");
+  const brandView = document.getElementById("brand-view");
+
+  // Default: show timeline view
+  timelineView.classList.remove("hidden");
+  brandView.classList.add("hidden");
+
+  timelineBtn.addEventListener("click", () => {
+    timelineBtn.classList.add("active");
+    brandBtn.classList.remove("active");
+
+    timelineView.classList.remove("hidden");
+    brandView.classList.add("hidden");
+
+    timelineView.classList.add("fade-in");
+  });
+
+  brandBtn.addEventListener("click", () => {
+    brandBtn.classList.add("active");
+    timelineBtn.classList.remove("active");
+
+    brandView.classList.remove("hidden");
+    timelineView.classList.add("hidden");
+
+    brandView.classList.add("fade-in");
+  });
+}
+// ===============================
+// PHASE 3 — TIMELINE VIEW LOGIC
+// ===============================
+function setupTimeline() {
+  const eras = document.querySelectorAll(".timeline-era");
+  const detailsBox = document.getElementById("timeline-details");
+
+  const eraContent = {
+    "1900s": `
+      <h3>The Birth of British Motorsport</h3>
+      <p>Britain enters the automotive age with early hill climbs, speed trials, and the first purpose-built circuits.</p>
+    `,
+    "1920s": `
+      <h3>The Bentley Boys Era</h3>
+      <p>British dominance at Le Mans begins. The Bentley Boys become legends of endurance racing.</p>
+    `,
+    "1950s": `
+      <h3>Formula One Takes Shape</h3>
+      <p>Vanwall and BRM rise. Britain becomes a powerhouse in the early years of Formula One.</p>
+    `,
+    "1970s": `
+      <h3>Lotus Innovation Revolution</h3>
+      <p>Colin Chapman and Team Lotus redefine racing with ground effects, aerodynamics, and engineering brilliance.</p>
+    `,
+    "1990s": `
+      <h3>McLaren Supremacy</h3>
+      <p>Senna, Prost, and the MP4/4 dominate the sport. British engineering reaches new heights.</p>
+    `,
+    "modern": `
+      <h3>The Hamilton Era</h3>
+      <p>Lewis Hamilton becomes one of the greatest drivers in history. British teams remain at the top of global motorsport.</p>
+    `
+  };
+
+  eras.forEach(era => {
+    era.addEventListener("click", () => {
+      eras.forEach(e => e.classList.remove("active"));
+      era.classList.add("active");
+
+      const key = era.dataset.era;
+      detailsBox.innerHTML = eraContent[key] || "<p>No data available.</p>";
+      detailsBox.classList.add("fade-in");
+    });
+  });
+}
+// ===============================
+// PHASE 4 — RACING GALLERIES
+// ===============================
+function loadBrandRacingGalleries() {
+  const galleries = {
+    "lotus-gallery": [
+      "images/racing/lotus/lotus49-1.jpg",
+      "images/racing/lotus/lotus49-2.jpg",
+      "images/racing/lotus/lotus72-1.jpg",
+      "images/racing/lotus/lotus79-1.jpg"
+    ],
+    "mclaren-gallery": [
+      "images/racing/mclaren/mp44-1.jpg",
+      "images/racing/mclaren/mp44-2.jpg",
+      "images/racing/mclaren/f1gtr-1.jpg"
+    ],
+    "jaguar-gallery": [
+      "images/racing/jaguar/dtype-1.jpg",
+      "images/racing/jaguar/xjr9-1.jpg",
+      "images/racing/jaguar/xjr12-1.jpg"
+    ],
+    "bentley-gallery": [
+      "images/racing/bentley/speedsix-1.jpg",
+      "images/racing/bentley/speed8-1.jpg",
+      "images/racing/bentley/speedsix-2.jpg"
+    ]
+  };
+
+  Object.entries(galleries).forEach(([className, images]) => {
+    const container = document.querySelector(`.${className}`);
+    if (!container) return;
+
+    container.innerHTML = images
+      .map(img => `<img src="${img}" onclick="openLightbox('${img}')">`)
+      .join("");
+  });
+}
+// ===============================
+// PHASE 5 Driver Logic
+// ===============================
+function setupDrivers() {
+  const cards = document.querySelectorAll(".driver-card");
+  const panel = document.getElementById("driver-panel");
+  const overlay = document.getElementById("driver-panel-overlay");
+  const closeBtn = document.getElementById("driver-panel-close");
+  const content = document.getElementById("driver-panel-content");
+
+  const driverData = {
+    clark: {
+      name: "Jim Clark",
+      bio: "Two-time F1 World Champion and one of the most naturally gifted drivers in history.",
+      highlights: [
+        "F1 World Champion: 1963, 1965",
+        "Indianapolis 500 winner: 1965",
+        "Lotus legend and master of smooth speed"
+      ]
+    },
+    stewart: {
+      name: "Jackie Stewart",
+      bio: "Triple World Champion and a pioneer of safety in motorsport.",
+      highlights: [
+        "F1 World Champion: 1969, 1971, 1973",
+        "Known as 'The Flying Scot'",
+        "Instrumental in improving F1 safety standards"
+      ]
+    },
+    hamilton: {
+      name: "Lewis Hamilton",
+      bio: "One of the most successful drivers in F1 history, redefining modern British motorsport.",
+      highlights: [
+        "Multiple F1 World Championships",
+        "Holds numerous pole and win records",
+        "Iconic partnership with Mercedes"
+      ]
+    },
+    moss: {
+      name: "Stirling Moss",
+      bio: "Often called the greatest driver never to win the World Championship.",
+      highlights: [
+        "16 Grand Prix wins",
+        "Versatile across sports cars and single-seaters",
+        "Synonymous with gentleman racing spirit"
+      ]
+    },
+    mansell: {
+      name: "Nigel Mansell",
+      bio: "Aggressive, emotional, and spectacularly fast—beloved by British fans.",
+      highlights: [
+        "F1 World Champion: 1992",
+        "CART IndyCar World Series Champion: 1993",
+        "Known for dramatic wheel-to-wheel battles"
+      ]
+    }
+  };
+
+  function openDriver(key) {
+    const d = driverData[key];
+    if (!d) return;
+
+    content.innerHTML = `
+      <h3>${d.name}</h3>
+      <p>${d.bio}</p>
+      <h4>Highlights</h4>
+      <ul>
+        ${d.highlights.map(h => `<li>${h}</li>`).join("")}
+      </ul>
+    `;
+
+    panel.classList.add("active");
+    overlay.classList.add("active");
+  }
+
+  function closeDriver() {
+    panel.classList.remove("active");
+    overlay.classList.remove("active");
+  }
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const key = card.dataset.driver;
+      openDriver(key);
+    });
+  });
+
+  closeBtn.addEventListener("click", closeDriver);
+  overlay.addEventListener("click", closeDriver);
+}
+
 
 
 
@@ -256,5 +465,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (page === "details") {
     loadModelDetails();
+  }
+
+  if (page === "british-racing") {
+    console.log("British Racing page loaded");
+    setupViewToggle();
+    setupTimeline();
+    loadBrandRacingGalleries();
+    setupDrivers();
   }
 });

@@ -467,3 +467,435 @@ body {
     font-size: 1.9rem;
   }
 }
+
+/* British Racing Theme Colors */
+:root {
+  --racing-green: #0B2E13;
+  --racing-gold: #D4AF37;
+}
+
+/* HERO BANNER */
+.racing-hero {
+  position: relative;
+  background: var(--racing-green);
+  color: var(--racing-gold);
+  padding: 80px 20px;
+  text-align: center;
+  overflow: hidden;
+  animation: fadeInHero 1.2s ease-out forwards;
+}
+
+/* Medium subtle checkered-flag texture */
+.racing-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
+  background-size: 40px 40px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.racing-hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.racing-hero-title {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: var(--racing-gold);
+}
+
+/* Lotus Silhouette */
+.lotus-silhouette {
+  width: 70%;
+  max-width: 700px;
+  margin: 0 auto;
+  display: block;
+  opacity: 0.35;
+}
+
+/* Fade-in animation */
+@keyframes fadeInHero {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* VIEW TOGGLE */
+.view-toggle {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 2px solid var(--racing-gold);
+  color: var(--racing-gold);
+  padding: 12px 24px;
+  margin: 0 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.toggle-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+}
+
+.toggle-btn.active {
+  background: var(--racing-gold);
+  color: var(--racing-green);
+}
+
+/* Fade transition for view switching */
+.fade-in {
+  animation: fadeInSection 0.5s ease forwards;
+}
+
+@keyframes fadeInSection {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hidden sections */
+.hidden {
+  display: none;
+}
+/* ============================
+   HORIZONTAL RACING TIMELINE
+   ============================ */
+
+.timeline-container {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.timeline-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px 0;
+  border-bottom: 2px solid var(--racing-gold);
+  scrollbar-width: thin;
+}
+
+.timeline-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.timeline-scroll::-webkit-scrollbar-thumb {
+  background: var(--racing-gold);
+  border-radius: 4px;
+}
+
+.timeline-era {
+  flex: 0 0 auto;
+  padding: 12px 24px;
+  margin-right: 20px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 2px solid var(--racing-gold);
+  color: var(--racing-gold);
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.timeline-era:hover {
+  transform: scale(1.08);
+  background: rgba(212, 175, 55, 0.25);
+}
+
+.timeline-era.active {
+  background: var(--racing-gold);
+  color: var(--racing-green);
+  transform: scale(1.1);
+}
+
+.timeline-details {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(11, 46, 19, 0.4);
+  border: 1px solid var(--racing-gold);
+  border-radius: 8px;
+  color: var(--racing-gold);
+  min-height: 120px;
+  animation: fadeInSection 0.5s ease forwards;
+}
+
+.timeline-placeholder {
+  opacity: 0.7;
+  font-style: italic;
+}
+/* ============================
+   BRAND RACING SECTIONS
+   ============================ */
+
+.brand-racing-container {
+  margin-top: 40px;
+}
+
+.brand-racing-section {
+  margin-bottom: 60px;
+  padding: 20px;
+  background: rgba(11, 46, 19, 0.35);
+  border: 1px solid var(--racing-gold);
+  border-radius: 10px;
+}
+
+.brand-racing-title {
+  color: var(--racing-gold);
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.brand-racing-text {
+  color: var(--racing-gold);
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+.brand-racing-subtitle {
+  color: var(--racing-gold);
+  margin-bottom: 10px;
+}
+
+.brand-racing-cars {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.racing-car-card {
+  padding: 12px 20px;
+  border: 2px solid var(--racing-gold);
+  color: var(--racing-gold);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.racing-car-card:hover {
+  background: var(--racing-gold);
+  color: var(--racing-green);
+  transform: scale(1.05);
+}
+
+/* GALLERIES */
+.brand-gallery {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.brand-gallery img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border: 2px solid var(--racing-gold);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.brand-gallery img:hover {
+  transform: scale(1.08);
+}
+/* DRIVERS SECTION */
+.drivers-section {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.drivers-title {
+  color: var(--racing-gold);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.drivers-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.driver-card {
+  width: 160px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--racing-gold);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.driver-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--racing-gold);
+}
+
+.driver-card h3 {
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.driver-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* SIDE PANEL */
+.driver-panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 900;
+}
+
+.driver-panel-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.driver-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100vh;
+  background: #081b0d;
+  border-left: 2px solid var(--racing-gold);
+  padding: 20px;
+  color: var(--racing-gold);
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.6);
+  transition: right 0.35s ease;
+  z-index: 1000;
+}
+
+.driver-panel.active {
+  right: 0;
+}
+
+.driver-panel-close {
+  background: transparent;
+  border: none;
+  color: var(--racing-gold);
+  font-size: 1.8rem;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 14px;
+}
+
+.driver-panel h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.driver-panel p {
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+/* ============================
+   HALL OF FAME SELECTION
+   ============================ */
+
+.hof-section {
+  margin-top: 60px;
+  padding: 20px;
+  text-align: center;
+}
+
+.hof-title {
+  color: var(--racing-gold);
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+
+.hof-box {
+  background: rgba(11, 46, 19, 0.35);
+  border: 2px solid var(--racing-gold);
+  border-radius: 10px;
+  padding: 30px 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+  cursor: pointer;
+  transition: 0.35s ease;
+  color: var(--racing-gold);
+}
+
+.hof-box h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.hof-box p {
+  opacity: 0.85;
+}
+
+.hof-box:hover {
+  background: var(--racing-gold);
+  color: var(--racing-green);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+/* HOF PAGES */
+.hof-page-hero {
+  padding: 40px 20px;
+  text-align: center;
+  background: rgba(11, 46, 19, 0.6);
+  color: var(--racing-gold);
+}
+
+.hof-page-hero h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+}
+
+.hof-page-hero p {
+  opacity: 0.85;
+}
+
+.hof-page-content {
+  padding: 30px 20px;
+}
+
+.hof-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.hof-card {
+  background: rgba(11, 46, 19, 0.4);
+  border: 1px solid var(--racing-gold);
+  border-radius: 10px;
+  padding: 20px;
+  width: 260px;
+  color: var(--racing-gold);
+  text-align: left;
+  transition: 0.3s ease;
+}
+
+.hof-card h2 {
+  margin-bottom: 8px;
+}
+
+.hof-card p {
+  opacity: 0.9;
+}
+
+.hof-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+}
