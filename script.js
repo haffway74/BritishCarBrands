@@ -239,38 +239,133 @@ function loadBrandsPage() {
 // ===============================
 // PHASE 2 — VIEW TOGGLE SYSTEM
 // ===============================
-
 function setupViewToggle() {
   const timelineBtn = document.getElementById("timeline-btn");
   const brandBtn = document.getElementById("brand-btn");
+  const driversBtn = document.getElementById("drivers-btn");
 
   const timelineView = document.getElementById("timeline-view");
   const brandView = document.getElementById("brand-view");
+  const driversView = document.getElementById("drivers-view");
 
-  // Default: show timeline view
+  // Default view
   timelineView.classList.remove("hidden");
   brandView.classList.add("hidden");
+  driversView.classList.add("hidden");
 
+  // Timeline
   timelineBtn.addEventListener("click", () => {
     timelineBtn.classList.add("active");
     brandBtn.classList.remove("active");
+    driversBtn.classList.remove("active");
 
     timelineView.classList.remove("hidden");
     brandView.classList.add("hidden");
+    driversView.classList.add("hidden");
 
     timelineView.classList.add("fade-in");
   });
 
+  // Brand
   brandBtn.addEventListener("click", () => {
     brandBtn.classList.add("active");
     timelineBtn.classList.remove("active");
+    driversBtn.classList.remove("active");
 
     brandView.classList.remove("hidden");
     timelineView.classList.add("hidden");
+    driversView.classList.add("hidden");
 
     brandView.classList.add("fade-in");
   });
+
+  // Drivers
+  driversBtn.addEventListener("click", () => {
+    driversBtn.classList.add("active");
+    timelineBtn.classList.remove("active");
+    brandBtn.classList.remove("active");
+
+    driversView.classList.remove("hidden");
+    timelineView.classList.add("hidden");
+    brandView.classList.add("hidden");
+
+    driversView.classList.add("fade-in");
+  });
 }
+function setupTeamSelection() {
+  const cards = document.querySelectorAll(".team-card");
+  const container = document.getElementById("team-info-container");
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const team = card.dataset.team;
+      const template = document.getElementById(`team-${team}`);
+
+      if (template) {
+        container.innerHTML = "";
+        container.appendChild(template.content.cloneNode(true));
+      }
+    });
+  });
+}
+// ===============================
+// BRITISH RACING — VIEW TOGGLE
+// ===============================
+function setupViewToggle() {
+  const timelineBtn = document.getElementById("timeline-btn");
+  const brandBtn = document.getElementById("brand-btn");
+  const driversBtn = document.getElementById("drivers-btn");
+
+  const timelineView = document.getElementById("timeline-view");
+  const brandView = document.getElementById("brand-view");
+  const driversView = document.getElementById("drivers-view");
+
+  // ⭐ ALWAYS start hidden
+  timelineView.classList.add("hidden");
+  brandView.classList.add("hidden");
+  driversView.classList.add("hidden");
+
+  // ⭐ Remove active state from all buttons
+  function clearActive() {
+    timelineBtn.classList.remove("active");
+    brandBtn.classList.remove("active");
+    driversBtn.classList.remove("active");
+  }
+
+  // ⭐ Timeline button
+  timelineBtn.addEventListener("click", () => {
+    clearActive();
+    timelineBtn.classList.add("active");
+
+    timelineView.classList.remove("hidden");
+    brandView.classList.add("hidden");
+    driversView.classList.add("hidden");
+  });
+
+  // ⭐ Brand View button
+  brandBtn.addEventListener("click", () => {
+    clearActive();
+    brandBtn.classList.add("active");
+
+    brandView.classList.remove("hidden");
+    timelineView.classList.add("hidden");
+    driversView.classList.add("hidden");
+  });
+
+  // ⭐ Drivers button
+  driversBtn.addEventListener("click", () => {
+    clearActive();
+    driversBtn.classList.add("active");
+
+    driversView.classList.remove("hidden");
+    timelineView.classList.add("hidden");
+    brandView.classList.add("hidden");
+  });
+}
+
+
+
+
 // ===============================
 // PHASE 3 — TIMELINE VIEW LOGIC
 // ===============================
@@ -444,6 +539,124 @@ function setupDrivers() {
   overlay.addEventListener("click", closeDriver);
 }
 
+function setupHofDrivers() {
+  const modal = document.getElementById("driver-modal");
+  const modalBody = document.getElementById("driver-modal-body");
+  const closeBtn = document.getElementById("driver-modal-close");
+
+  const driverData = {
+    clark: {
+      name: "Jim Clark",
+      bio: "Two-time F1 World Champion and one of the most naturally gifted drivers in history.",
+      highlights: [
+        "F1 World Champion: 1963, 1965",
+        "Indianapolis 500 winner: 1965",
+        "Lotus legend and master of smooth speed"
+      ]
+    },
+    stewart: {
+      name: "Jackie Stewart",
+      bio: "Triple World Champion and a pioneer of safety in motorsport.",
+      highlights: [
+        "F1 World Champion: 1969, 1971, 1973",
+        "Known as 'The Flying Scot'",
+        "Instrumental in improving F1 safety standards"
+      ]
+    },
+    hamilton: {
+      name: "Lewis Hamilton",
+      bio: "One of the most successful drivers in F1 history.",
+      highlights: [
+        "Multiple F1 World Championships",
+        "Holds numerous pole and win records",
+        "Iconic partnership with Mercedes"
+      ]
+    },
+    moss: {
+      name: "Stirling Moss",
+      bio: "Often called the greatest driver never to win the World Championship.",
+      highlights: [
+        "16 Grand Prix wins",
+        "Versatile across sports cars and single-seaters",
+        "Synonymous with gentleman racing spirit"
+      ]
+    },
+    mansell: {
+      name: "Nigel Mansell",
+      bio: "Aggressive, emotional, and spectacularly fast.",
+      highlights: [
+        "F1 World Champion: 1992",
+        "CART IndyCar World Series Champion: 1993",
+        "Known for dramatic wheel-to-wheel battles"
+      ]
+    },
+    ghill: {
+      name: "Graham Hill",
+      bio: "The only driver to win the Triple Crown of Motorsport.",
+      highlights: [
+        "F1 World Champion: 1962, 1968",
+        "Indianapolis 500 winner: 1966",
+        "Le Mans 24 Hours winner: 1972"
+      ]
+    },
+    button: {
+      name: "Jenson Button",
+      bio: "Smooth, strategic, and universally respected.",
+      highlights: [
+        "F1 World Champion: 2009",
+        "15 Grand Prix wins",
+        "Known for tire management mastery"
+      ]
+    },
+    dhill: {
+      name: "Damon Hill",
+      bio: "Son of Graham Hill and a determined champion.",
+      highlights: [
+        "F1 World Champion: 1996",
+        "22 Grand Prix wins",
+        "Known for resilience and consistency"
+      ]
+    },
+    hawthorn: {
+      name: "Mike Hawthorn",
+      bio: "Britain’s first Formula One World Champion.",
+      highlights: [
+        "F1 World Champion: 1958",
+        "Known for his bow tie and fearless driving",
+        "Le Mans competitor"
+      ]
+    },
+    surtees: {
+      name: "John Surtees",
+      bio: "The only person to win world titles on motorcycles and in Formula One.",
+      highlights: [
+        "F1 World Champion: 1964",
+        "Multiple motorcycle world titles",
+        "A uniquely versatile champion"
+      ]
+    }
+  };
+
+  function openDriver(key) {
+    const d = driverData[key];
+    modalBody.innerHTML = `
+      <h2>${d.name}</h2>
+      <p>${d.bio}</p>
+      <h3>Highlights</h3>
+      <ul>${d.highlights.map(h => `<li>${h}</li>`).join("")}</ul>
+    `;
+    modal.classList.add("active");
+  }
+
+  document.querySelectorAll("[data-driver]").forEach(el => {
+    el.addEventListener("click", () => openDriver(el.dataset.driver));
+  });
+
+  closeBtn.addEventListener("click", () => modal.classList.remove("active"));
+  modal.addEventListener("click", e => {
+    if (e.target === modal) modal.classList.remove("active");
+  });
+}
 
 
 
@@ -474,4 +687,16 @@ document.addEventListener("DOMContentLoaded", () => {
     loadBrandRacingGalleries();
     setupDrivers();
   }
+
+
+  if (page === "hof-teams") {
+    setupTeamSelection();   // ⭐ ADD THIS HERE
+  }
+
+if (page === "hof-drivers") {
+  setupHofDrivers();
+}
+
+
+
 });
