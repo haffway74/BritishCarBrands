@@ -41,8 +41,10 @@
 
     <!-- VIEW TOGGLE (PHASE 2) -->
 <section id="view-toggle-section" class="view-toggle">
-  <button id="timeline-btn" class="toggle-btn active">Timeline View</button>
+  <button id="timeline-btn" class="toggle-btn">Timeline View</button>
   <button id="brand-btn" class="toggle-btn">Brand View</button>
+  <button id="drivers-btn" class="toggle-btn" onclick="window.location.href='hof-drivers.html'">Drivers</button>
+ 
 </section>
 
 
@@ -66,109 +68,78 @@
 
 
     <!-- BRAND VIEW (PHASE 4) -->
-<section id="brand-view" class="brand-racing-container hidden">
 
-  <!-- LOTUS -->
-  <div class="brand-racing-section fade-in">
-    <h2 class="brand-racing-title">Lotus Racing Heritage</h2>
-    <p class="brand-racing-text">
-      Lotus revolutionized motorsport with lightweight engineering, ground effects, and aerodynamic innovation.
-      Colin Chapman’s philosophy — “Simplify, then add lightness” — changed racing forever.
-    </p>
+<section id="brand-view" class="hidden brand-view-select">
+  <h2 class="brand-view-title">Explore British Racing Heritage</h2>
 
-    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
-    <div class="brand-racing-cars">
-      <div class="racing-car-card" onclick="goToModel('lotus', '49')">Lotus 49</div>
-      <div class="racing-car-card" onclick="goToModel('lotus', '72')">Lotus 72</div>
-      <div class="racing-car-card" onclick="goToModel('lotus', '79')">Lotus 79</div>
+  <div class="brand-view-options">
+
+    <div class="brand-option-card" onclick="window.location.href='hof-cars.html'">
+      <h3>Legendary Cars</h3>
+      <p>Explore the most iconic British racing machines ever built.</p>
     </div>
 
-    <div class="brand-gallery lotus-gallery">
-      <!-- Phase 4 JS will load images here -->
+    <div class="brand-option-card" onclick="window.location.href='hof-teams.html'">
+      <h3>Legendary Teams</h3>
+      <p>Discover the British teams that shaped motorsport history.</p>
     </div>
+
   </div>
+</section>
 
-  <!-- MCLAREN -->
-  <div class="brand-racing-section fade-in">
-    <h2 class="brand-racing-title">McLaren Racing Heritage</h2>
-    <p class="brand-racing-text">
-      McLaren is synonymous with Formula One excellence — from the MP4/4 dominance to modern hybrid innovation.
-      Their engineering precision and driver legacy define British motorsport.
-    </p>
-
-    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
-    <div class="brand-racing-cars">
-      <div class="racing-car-card" onclick="goToModel('mclaren', 'mp4-4')">MP4/4</div>
-      <div class="racing-car-card" onclick="goToModel('mclaren', 'f1-gtr')">F1 GTR</div>
-      <div class="racing-car-card" onclick="goToModel('mclaren', 'mp4-13')">MP4/13</div>
-    </div>
-
-    <div class="brand-gallery mclaren-gallery"></div>
-  </div>
-
-  <!-- JAGUAR -->
-  <div class="brand-racing-section fade-in">
-    <h2 class="brand-racing-title">Jaguar Racing Heritage</h2>
-    <p class="brand-racing-text">
-      Jaguar dominated endurance racing with aerodynamic brilliance and raw power.
-      The D‑Type and XJR series remain icons of Le Mans history.
-    </p>
-
-    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
-    <div class="brand-racing-cars">
-      <div class="racing-car-card" onclick="goToModel('jaguar', 'd-type')">D‑Type</div>
-      <div class="racing-car-card" onclick="goToModel('jaguar', 'xjr-9')">XJR‑9</div>
-      <div class="racing-car-card" onclick="goToModel('jaguar', 'xjr-12')">XJR‑12</div>
-    </div>
-
-    <div class="brand-gallery jaguar-gallery"></div>
-  </div>
-
-  <!-- BENTLEY -->
-  <div class="brand-racing-section fade-in">
-    <h2 class="brand-racing-title">Bentley Racing Heritage</h2>
-    <p class="brand-racing-text">
-      Bentley’s endurance racing legacy began with the legendary Bentley Boys.
-      Their Speed Six and Speed 8 machines defined British power and durability.
-    </p>
-
-    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
-    <div class="brand-racing-cars">
-      <div class="racing-car-card" onclick="goToModel('bentley', 'speed-six')">Speed Six</div>
-      <div class="racing-car-card" onclick="goToModel('bentley', 'speed-8')">Speed 8</div>
-    </div>
-
-    <div class="brand-gallery bentley-gallery"></div>
-  </div>
 
 </section>
  
+<section id="drivers-view" class="hidden drivers-view">
+  <h2 class="drivers-view-title">British Racing Drivers</h2>
+  <p class="drivers-view-subtitle">Explore the greatest British drivers in motorsport history.</p>
 
-    <!-- FAMOUS DRIVERS (PHASE 5) -->
- <section id="famous-drivers-section" class="drivers-section">
-  <h2 class="drivers-title">Famous British Drivers</h2>
-  <div class="drivers-grid">
-    <div class="driver-card" data-driver="clark">
-      <img src="images/drivers/jim-clark.jpg" alt="Jim Clark">
+  <div class="drivers-view-grid">
+    <div class="drivers-view-card">
       <h3>Jim Clark</h3>
+      <p>Two‑time F1 World Champion and Lotus legend.</p>
     </div>
-    <div class="driver-card" data-driver="stewart">
-      <img src="images/drivers/jackie-stewart.jpg" alt="Jackie Stewart">
+    <div class="drivers-view-card">
       <h3>Jackie Stewart</h3>
+      <p>Triple World Champion and safety pioneer.</p>
     </div>
-    <div class="driver-card" data-driver="hamilton">
-      <img src="images/drivers/lewis-hamilton.jpg" alt="Lewis Hamilton">
+    <div class="drivers-view-card">
       <h3>Lewis Hamilton</h3>
+      <p>Record‑breaking modern F1 icon.</p>
     </div>
-    <div class="driver-card" data-driver="moss">
-      <img src="images/drivers/stirling-moss.jpg" alt="Stirling Moss">
+    <div class="drivers-view-card">
       <h3>Stirling Moss</h3>
+      <p>The greatest driver never to win the title.</p>
     </div>
-    <div class="driver-card" data-driver="mansell">
-      <img src="images/drivers/nigel-mansell.jpg" alt="Nigel Mansell">
+    <div class="drivers-view-card">
       <h3>Nigel Mansell</h3>
+      <p>F1 and IndyCar champion, adored by British fans.</p>
+    </div>
+    <div class="drivers-view-card">
+      <h3>Graham Hill</h3>
+      <p>The only driver to win the Triple Crown of Motorsport.</p>
+    </div>
+    <div class="drivers-view-card">
+      <h3>Jenson Button</h3>
+      <p>2009 Formula One World Champion.</p>
+    </div>
+    <div class="drivers-view-card">
+      <h3>Damon Hill</h3>
+      <p>1996 Formula One World Champion.</p>
+    </div>
+    <div class="drivers-view-card">
+      <h3>Mike Hawthorn</h3>
+      <p>Britain’s first Formula One World Champion.</p>
+    </div>
+    <div class="drivers-view-card">
+      <h3>John Surtees</h3>
+      <p>The only person to win titles on bikes and in F1.</p>
     </div>
   </div>
+</section>
+
+
+
 
   <!-- Side Panel -->
   <div id="driver-panel" class="driver-panel">
@@ -179,25 +150,7 @@
 </section>
 
 
-    <!-- HALL OF FAME (PHASE 6) -->
-<section id="hall-of-fame-section" class="hof-section">
-  <h2 class="hof-title">Hall of Fame</h2>
 
-  <div class="hof-box" onclick="window.location.href='hof-cars.html'">
-    <h3>Legendary Cars</h3>
-    <p>Explore the most iconic British racing machines ever built.</p>
-  </div>
-
-  <div class="hof-box" onclick="window.location.href='hof-drivers.html'">
-    <h3>Legendary Drivers</h3>
-    <p>The greatest British drivers who shaped motorsport history.</p>
-  </div>
-
-  <div class="hof-box" onclick="window.location.href='hof-teams.html'">
-    <h3>Legendary Teams</h3>
-    <p>Discover the British teams that dominated global racing.</p>
-  </div>
-</section>
  
 
   </div>

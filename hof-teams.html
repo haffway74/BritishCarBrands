@@ -20,30 +20,109 @@
   </section>
 
   <main class="hof-page-content">
-    <div class="hof-grid">
-      <div class="hof-card">
-        <h2>Team Lotus</h2>
-        <p>Innovation powerhouse that reshaped Formula One.</p>
-      </div>
-      <div class="hof-card">
-        <h2>McLaren</h2>
-        <p>Engineering excellence and championship pedigree.</p>
-      </div>
-      <div class="hof-card">
-        <h2>Williams</h2>
-        <p>Multiple titles and iconic driver lineups.</p>
-      </div>
-      <div class="hof-card">
-        <h2>Bentley Boys</h2>
-        <p>Le Mans legends of the interwar era.</p>
-      </div>
-      <div class="hof-card">
-        <h2>Jaguar Sport</h2>
-        <p>Endurance racing success with the XJR prototypes.</p>
-      </div>
-    </div>
+<div class="hof-grid">
+  <div class="hof-card team-card" data-team="lotus">
+    <h2>Team Lotus</h2>
+    <p>Innovation powerhouse that reshaped Formula One.</p>
+  </div>
+
+  <div class="hof-card team-card" data-team="mclaren">
+    <h2>McLaren</h2>
+    <p>Engineering excellence and championship pedigree.</p>
+  </div>
+
+  <div class="hof-card team-card" data-team="jaguar">
+    <h2>Jaguar Sport</h2>
+    <p>Endurance racing success with the XJR prototypes.</p>
+  </div>
+
+  <div class="hof-card team-card" data-team="bentley">
+    <h2>Bentley Boys</h2>
+    <p>Le Mans legends of the interwar era.</p>
+  </div>
+</div>
   </main>
 
+  
+<section id="team-info-container"></section>
+
   <script src="script.js"></script>
+
+<!-- TEAM HERITAGE TEMPLATES (HIDDEN) -->
+<template id="team-lotus">
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Lotus Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Lotus revolutionized motorsport with lightweight engineering, ground effects, and aerodynamic innovation.
+      Colin Chapman’s philosophy — “Simplify, then add lightness” — changed racing forever.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card">Lotus 49</div>
+      <div class="racing-car-card">Lotus 72</div>
+      <div class="racing-car-card">Lotus 79</div>
+    </div>
+
+    <div class="brand-gallery lotus-gallery"></div>
+  </div>
+</template>
+
+<template id="team-mclaren">
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">McLaren Racing Heritage</h2>
+    <p class="brand-racing-text">
+      McLaren is synonymous with Formula One excellence — from the MP4/4 dominance to modern hybrid innovation.
+      Their engineering precision and driver legacy define British motorsport.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card">MP4/4</div>
+      <div class="racing-car-card">F1 GTR</div>
+      <div class="racing-car-card">MP4/13</div>
+    </div>
+
+    <div class="brand-gallery mclaren-gallery"></div>
+  </div>
+</template>
+
+<template id="team-jaguar">
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Jaguar Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Jaguar dominated endurance racing with aerodynamic brilliance and raw power.
+      The D‑Type and XJR series remain icons of Le Mans history.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card">D‑Type</div>
+      <div class="racing-car-card">XJR‑9</div>
+      <div class="racing-car-card">XJR‑12</div>
+    </div>
+
+    <div class="brand-gallery jaguar-gallery"></div>
+  </div>
+</template>
+
+<template id="team-bentley">
+  <div class="brand-racing-section fade-in">
+    <h2 class="brand-racing-title">Bentley Racing Heritage</h2>
+    <p class="brand-racing-text">
+      Bentley’s endurance racing legacy began with the legendary Bentley Boys.
+      Their Speed Six and Speed 8 machines defined British power and durability.
+    </p>
+
+    <h3 class="brand-racing-subtitle">Legendary Cars</h3>
+    <div class="brand-racing-cars">
+      <div class="racing-car-card">Speed Six</div>
+      <div class="racing-car-card">Speed 8</div>
+    </div>
+
+    <div class="brand-gallery bentley-gallery"></div>
+  </div>
+</template>
+
 </body>
 </html>
