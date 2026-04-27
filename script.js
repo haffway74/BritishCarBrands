@@ -1,105 +1,355 @@
-// ===============================
-// British Car App — script.js
-// Handles brand page + model page routing and rendering
-// ===============================
+// ============================================================
+// British Car Encyclopedia — script.js (CLEAN BASELINE)
+// Multi-page routing + rendering + lightbox + optional videos
+// ============================================================
 
 // -------------------------------
 // NAVIGATION HELPERS
 // -------------------------------
-
 function goToBrand(brandSlug) {
-  window.location.href = `brand.html?brand=${brandSlug}`;
+  window.location.href = `brand.html?brand=${encodeURIComponent(brandSlug)}`;
 }
 
 function goToModel(brandSlug, modelSlug) {
-  window.location.href = `details.html?brand=${brandSlug}&model=${modelSlug}`;
+  window.location.href =
+    `details.html?brand=${encodeURIComponent(brandSlug)}&model=${encodeURIComponent(modelSlug)}`;
 }
 
-// ===============================
-// SEARCH LOGIC FOR BRANDS PAGE
-// ===============================
+// -------------------------------
+// DOM + DATA HELPERS
+// -------------------------------
+function $(id) {
+  return document.getElementById(id);
+}
 
+// cars.js defines: const britishCars = [ ... ] (not necessarily window.britishCars) 
+function getCars() {
+  if (typeof britishCars !== "undefined" && Array.isArray(britishCars)) return britishCars;
+  if (Array.isArray(window.britishCars)) return window.britishCars;
+  return [];
+}
+
+function toText(v) {
+  if (v === null || v === undefined) return "";
+  if (Array.isArray(v)) return v.join(" / ");
+  return String(v);
+}
+
+function safeArray(a) {
+  return Array.isArray(a) ? a : [];
+}
+
+function normalizeMakerName(name) {
+  return String(name || "")
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[’']/g, "")
+    .replace(/\./g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+// -------------------------------
+// BRAND GROUP OVERRIDES (Curated taxonomy)
+// -------------------------------
+const BRAND_GROUP_BY_NAME = {
+  // Modern
+  "bentley": "modern",
+  "lotus": "modern",
+  "aston martin": "modern",
+  "jaguar": "modern",
+  "land rover": "modern",
+  "mclaren": "modern",
+  "mini": "modern",
+  "rolls-royce": "modern",
+  "rolls royce": "modern",
+
+  // Special
+  "tvr": "special",
+  "bristol": "special",
+  "caterham": "special",
+  "morgan": "special"
+};
+
+function getBrandGroupForManufacturer(manufacturer) {
+  const key = normalizeMakerName(manufacturer);
+  return BRAND_GROUP_BY_NAME[key] || "classic";
+}
+
+// -------------------------------
+// BRAND META RESOLVERS (slug-keyed or name-keyed; const or window.*)
+// -------------------------------
+function resolveMapValue(mapName, slug, name) {
+  // mapName: "brandHistory", "brand_founded", "brand_headquarters", "brandThemes", etc.
+
+  // Global const map
+  if (typeof window[mapName] !== "undefined" && window[mapName]) {
+    // If someone put it on window explicitly
+    const m = window[mapName];
+    return (m && (m[slug] || m[name])) || "";
+  }
+
+  // Global const in script scope (most common): typeof brandHistory !== "undefined"
+  try {
+    // eslint-disable-next-line no-eval
+    const m = eval(`typeof ${mapName} !== "undefined" ? ${mapName} : null`);
+    return (m && (m[slug] || m[name])) || "";
+  } catch {
+    return "";
+  }
+}
+
+function getBrandHistoryText(brand) {
+  return resolveMapValue("brandHistory", brand?.slug, brand?.manufacturer);
+}
+
+function getBrandFounded(brand) {
+  return resolveMapValue("brand_founded", brand?.slug, brand?.manufacturer);
+}
+
+function getBrandHeadquarters(brand) {
+  return resolveMapValue("brand_headquarters", brand?.slug, brand?.manufacturer);
+}
+
+function getBrandThemeColor(brand) {
+  return resolveMapValue("brandThemes", brand?.slug, brand?.manufacturer);
+}
+
+// ============================================================
+// OPTION 2 — LIGHTBOX (Gallery zoom) + VIDEO SUPPORT (YouTube)
+// ============================================================
+function extractYouTubeID(url) {
+  if (!url) return "";
+  const s = String(url).trim();
+
+  const short = s.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/);
+  if (short) return short[1];
+
+  const watch = s.match(/[?&]v=([A-Za-z0-9_-]{6,})/);
+  if (watch) return watch[1];
+
+  const embed = s.match(/youtube\.com\/embed\/([A-Za-z0-9_-]{6,})/);
+  if (embed) return embed[1];
+
+  return "";
+}
+
+function renderVideos(videos, container) {
+  if (!container) return;
+
+  const list = Array.isArray(videos) ? videos : [];
+  if (!list.length) {
+    container.innerHTML = "";
+    container.style.display = "none";
+    return;
+  }
+
+  container.style.display = "";
+  container.innerHTML = `
+    <h2 class="video-section-title">Videos</h2>
+    <div class="video-grid">
+      ${list.map(v => {
+        const id = extractYouTubeID(v.youtube || v.url || "");
+        if (!id) return "";
+
+        const title = (v.title || "Video")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+
+        return `
+          <div class="video-card fade-in">
+            <p class="video-title">${title}</p>
+            <div class="video-frame">
+              <iframe
+                src="https://www.youtube.com/embed/${id}"
+                title="${title}"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
+function ensureLightbox() {
+  if (document.getElementById("lightbox-modal")) return;
+
+  const modal = document.createElement("div");
+  modal.id = "lightbox-modal";
+  modal.className = "lightbox-modal";
+  modal.innerHTML = `
+    <div class="lightbox-content fade-in" role="dialog" aria-modal="true">
+      <button class="lightbox-close" id="lightbox-close" aria-label="Close">×</button>
+      <img class="lightbox-img" id="lightbox-img" alt="Expanded image" />
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const close = () => modal.classList.remove("active");
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+
+  document.getElementById("lightbox-close").addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+}
+
+function openLightbox(src) {
+  if (!src) return;
+  ensureLightbox();
+  const modal = document.getElementById("lightbox-modal");
+  const img = document.getElementById("lightbox-img");
+  img.src = src;
+  modal.classList.add("active");
+}
+
+// ============================================================
+// BRANDS PAGE
+// ============================================================
 function initBrandSearch() {
-  const input = document.getElementById("searchInput");
-  const resultsBox = document.getElementById("searchResults");
-
+  const input = $("searchInput");
+  const resultsBox = $("searchResults");
   if (!input || !resultsBox) return;
 
   input.addEventListener("input", () => {
     const query = input.value.toLowerCase().trim();
 
-    if (query.length === 0) {
+    if (!query) {
       resultsBox.innerHTML = "";
       resultsBox.style.display = "none";
       return;
     }
 
-    const matches = britishCars.filter(car =>
-      car.manufacturer.toLowerCase().includes(query) ||
-      car.model.toLowerCase().includes(query)
-    );
-
-    if (matches.length === 0) {
-      resultsBox.innerHTML = "<p class='no-results'>No matches found.</p>";
+    const cars = getCars();
+    if (!cars.length) {
+      resultsBox.innerHTML = "<p class='no-results'>Dataset not loaded.</p>";
       resultsBox.style.display = "block";
       return;
     }
 
-    resultsBox.innerHTML = matches.map(car => {
-      const isBrandMatch = car.manufacturer.toLowerCase().includes(query);
-
-      if (isBrandMatch) {
-        return `
-          <div class="search-result" onclick="goToBrand('${car.slug}')">
-            <img src="images/brand-logos/${car.slug}.png" class="search-result-logo">
-            <span>${car.manufacturer}</span>
-          </div>
-        `;
+    // Brand matches (dedupe by slug)
+    const brandMatches = {};
+    cars.forEach(car => {
+      if ((car.manufacturer || "").toLowerCase().includes(query)) {
+        brandMatches[car.slug] = {
+          slug: car.slug,
+          manufacturer: car.manufacturer
+        };
       }
+    });
 
-      return `
-        <div class="search-result" onclick="goToModel('${car.slug}', '${car.model_slug}')">
-          <img src="${car.hero_image}" class="search-result-logo">
-          <span>${car.manufacturer} — ${car.model}</span>
-        </div>
-      `;
-    }).join("");
+    // Model matches (limited)
+    const modelMatches = cars
+      .filter(car => (car.model || "").toLowerCase().includes(query))
+      .slice(0, 25);
 
+    const brandCards = Object.values(brandMatches).map(b => `
+      <div class="search-result" onclick="goToBrand('${b.slug}')">
+        <img src="images/brand-logos/${b.slug}.png" class="search-result-logo" alt="${b.manufacturer}">
+        <span>${b.manufacturer}</span>
+      </div>
+    `);
+
+    const modelCards = modelMatches.map(car => `
+      <div class="search-result" onclick="goToModel('${car.slug}', '${car.model_slug}')">
+        <img src="${car.hero_image}" class="search-result-logo" alt="${car.model}">
+        <span>${car.manufacturer} — ${car.model}</span>
+      </div>
+    `);
+
+    const html = [...brandCards, ...modelCards].join("");
+    resultsBox.innerHTML = html || "<p class='no-results'>No matches found.</p>";
     resultsBox.style.display = "block";
   });
 }
 
-// ===============================
-// BRAND PAGE LOGIC
-// ===============================
+function loadBrandsPage() {
+  const cars = getCars();
+  if (!cars.length) return;
 
+  const brands = {};
+  cars.forEach(car => {
+    if (!brands[car.slug]) {
+      brands[car.slug] = {
+        slug: car.slug,
+        manufacturer: car.manufacturer,
+        brand_founded: getBrandFounded(car) || "Unknown",
+        brand_headquarters: getBrandHeadquarters(car) || "Unknown",
+        heritage_group: getBrandGroupForManufacturer(car.manufacturer)
+      };
+    }
+  });
+
+  const modernContainer = $("modernBrands");
+  const classicContainer = $("classicBrands");
+  const specialContainer = $("specialBrands");
+  if (!modernContainer || !classicContainer || !specialContainer) return;
+
+  modernContainer.innerHTML = "";
+  classicContainer.innerHTML = "";
+  specialContainer.innerHTML = "";
+
+  Object.values(brands).forEach(brand => {
+    const card = `
+      <div class="brand-card" onclick="goToBrand('${brand.slug}')">
+        <div class="brand-card-header">
+          <img src="images/brand-logos/${brand.slug}.png" class="brand-card-logo" alt="${brand.manufacturer}">
+        </div>
+        <div class="brand-card-body">
+          <h3>${brand.manufacturer}</h3>
+          <p class="brand-meta"><strong>Founded:</strong> ${brand.brand_founded}</p>
+          <p class="brand-meta"><strong>HQ:</strong> ${brand.brand_headquarters}</p>
+        </div>
+      </div>
+    `;
+
+    if (brand.heritage_group === "modern") modernContainer.innerHTML += card;
+    else if (brand.heritage_group === "special") specialContainer.innerHTML += card;
+    else classicContainer.innerHTML += card;
+  });
+}
+
+// ============================================================
+// BRAND PAGE
+// ============================================================
 function loadBrandPage() {
+  const cars = getCars();
+  if (!cars.length) return;
+
   const urlParams = new URLSearchParams(window.location.search);
   const brandSlug = urlParams.get("brand");
 
-  const models = britishCars.filter(car => car.slug === brandSlug);
-
-  if (models.length === 0) {
+  const models = cars.filter(car => car.slug === brandSlug);
+  if (!models.length) {
     console.error("Brand not found:", brandSlug);
     return;
   }
 
   const brand = models[0];
 
-  // Apply manufacturer theme colors
-  const theme = brandThemes[brand.slug];
+  // Theme color (supports name-keyed or slug-keyed maps)
+  const theme = getBrandThemeColor(brand);
   if (theme) {
     document.documentElement.style.setProperty("--brand-color", theme);
     document.documentElement.style.setProperty("--brand-color-light", theme);
     document.documentElement.style.setProperty("--accent-gold", "#D4AF37");
   }
 
-  document.getElementById("brand-name").textContent = brand.manufacturer;
-  document.getElementById("brand-logo").src = `images/brand-logos/${brand.slug}.png`;
+  if ($("brand-name")) $("brand-name").textContent = brand.manufacturer;
+  if ($("brand-logo")) $("brand-logo").src = `images/brand-logos/${brand.slug}.png`;
 
-  // Load brand history
-  document.getElementById("brand-history").textContent =
-    brandHistory[brand.slug] || "No history available.";
+  if ($("brand-history")) {
+    const history = getBrandHistoryText(brand);
+    $("brand-history").textContent = history || "No history available.";
+  }
 
   const modernModels = models.filter(m => m.heritage_group === "modern");
   const classicModels = models.filter(m => m.heritage_group === "classic");
@@ -110,14 +360,11 @@ function loadBrandPage() {
   renderModelSection("special-models", specialModels);
 }
 
-// -------------------------------
-// RENDER MODEL CARDS FOR BRAND PAGE
-// -------------------------------
-
 function renderModelSection(containerId, models) {
-  const container = document.getElementById(containerId);
+  const container = $(containerId);
+  if (!container) return;
 
-  if (!models || models.length === 0) {
+  if (!models || !models.length) {
     container.innerHTML = `<p class="empty-note">No models in this category.</p>`;
     return;
   }
@@ -130,248 +377,153 @@ function renderModelSection(containerId, models) {
   `).join("");
 }
 
-// ===============================
-// MODEL DETAILS PAGE LOGIC
-// ===============================
-
+// ============================================================
+// DETAILS PAGE (Model)
+// ============================================================
 function loadModelDetails() {
+  const cars = getCars();
+  if (!cars.length) return;
+
   const urlParams = new URLSearchParams(window.location.search);
   const brandSlug = urlParams.get("brand");
   const modelSlug = urlParams.get("model");
 
-  const model = britishCars.find(
-    car => car.slug === brandSlug && car.model_slug === modelSlug
-  );
-
+  const model = cars.find(car => car.slug === brandSlug && car.model_slug === modelSlug);
   if (!model) {
     console.error("Model not found:", brandSlug, modelSlug);
     return;
   }
 
-  document.getElementById("model-name").textContent = model.model;
-  document.getElementById("model-hero").src = model.hero_image;
+  if ($("model-name")) $("model-name").textContent = model.model;
+  if ($("brand-name")) $("brand-name").textContent = model.manufacturer || "";
+  if ($("model-hero")) $("model-hero").src = model.hero_image;
 
-  document.getElementById("model-summary").textContent = model.model_summary;
+  if ($("model-summary")) $("model-summary").textContent = toText(model.model_summary);
 
-  document.getElementById("model-years").textContent = model.years_produced;
-  document.getElementById("model-engine").textContent = model.engine;
-  document.getElementById("model-horsepower").textContent = model.horsepower;
-  document.getElementById("model-top-speed").textContent = model.top_speed_mph + " mph";
-  document.getElementById("model-body-style").textContent = model.body_style;
-  document.getElementById("model-drivetrain").textContent = model.drivetrain;
-  document.getElementById("model-transmission").textContent = model.transmission;
-  document.getElementById("model-seating").textContent = model.seating;
-  document.getElementById("model-location").textContent = model.production_location;
-  document.getElementById("model-designer").textContent = model.designer;
-  document.getElementById("model-price-new").textContent = model.price_when_new;
-  document.getElementById("model-value-range").textContent = model.current_value_range;
+  if ($("model-years")) $("model-years").textContent = toText(model.years_produced);
+  if ($("model-engine")) $("model-engine").textContent = toText(model.engine);
+  if ($("model-horsepower")) $("model-horsepower").textContent = toText(model.horsepower);
+  if ($("model-top-speed")) $("model-top-speed").textContent =
+    model.top_speed_mph ? `${toText(model.top_speed_mph)} mph` : "";
 
-  document.getElementById("model-variants").innerHTML =
-    model.variants.map(v => `<li>${v.name} (${v.years}) — ${v.engine}</li>`).join("");
+  if ($("model-body-style")) $("model-body-style").textContent = toText(model.body_style);
+  if ($("model-drivetrain")) $("model-drivetrain").textContent = toText(model.drivetrain);
+  if ($("model-transmission")) $("model-transmission").textContent = toText(model.transmission);
+  if ($("model-seating")) $("model-seating").textContent = toText(model.seating);
+  if ($("model-location")) $("model-location").textContent = toText(model.production_location);
+  if ($("model-designer")) $("model-designer").textContent = toText(model.designer);
+  if ($("model-price-new")) $("model-price-new").textContent = toText(model.price_when_new);
+  if ($("model-value-range")) $("model-value-range").textContent = toText(model.current_value_range);
 
-  document.getElementById("model-fun-facts").innerHTML =
-    model.fun_facts.map(f => `<li>${f}</li>`).join("");
+  if ($("model-variants")) {
+    $("model-variants").innerHTML = safeArray(model.variants)
+      .map(v => `<li>${toText(v.name)} (${toText(v.years)}) — ${toText(v.engine)}</li>`)
+      .join("");
+  }
 
-  document.getElementById("model-achievements").innerHTML =
-    model.notable_achievements.map(a => `<li>${a}</li>`).join("");
+  if ($("model-fun-facts")) {
+    $("model-fun-facts").innerHTML = safeArray(model.fun_facts)
+      .map(f => `<li>${toText(f)}</li>`)
+      .join("");
+  }
 
-  document.getElementById("model-gallery").innerHTML =
-    model.image_gallery.map(img => `<img src="${img}" class="gallery-img" alt="${model.model}">`).join("");
+  if ($("model-achievements")) {
+    $("model-achievements").innerHTML = safeArray(model.notable_achievements)
+      .map(a => `<li>${toText(a)}</li>`)
+      .join("");
+  }
 
-  document.getElementById("back-to-brand").onclick = () => goToBrand(model.slug);
-}
+  // Gallery with lightbox
+  if ($("model-gallery")) {
+    $("model-gallery").innerHTML = safeArray(model.image_gallery)
+      .map(img => `
+        <img
+          src="${img}"
+          class="gallery-img"
+          alt="${model.model}"
+          onclick="openLightbox('${img}')"
+        />
+      `).join("");
+  }
 
-// ===============================
-// MAIN BRANDS PAGE LOGIC
-// ===============================
+  // Optional videos section (appears only if model.videos exists)
+  let videosHost = $("model-videos");
+  if (!videosHost) {
+    videosHost = document.createElement("div");
+    videosHost.id = "model-videos";
+    videosHost.className = "details-section";
 
-function loadBrandsPage() {
-  const brands = {};
-
-  britishCars.forEach(car => {
-    if (!brands[car.slug]) {
-      brands[car.slug] = {
-        slug: car.slug,
-        manufacturer: car.manufacturer,
-
-        brand_history: brandHistory[car.slug] || "",
-        brand_founded: brand_founded[car.slug] || "Unknown",
-        brand_headquarters: brand_headquarters[car.slug] || "Unknown",
-
-        logo: `images/brand-logos/${car.slug}.png`,
-        heritage_group: brandCategories[car.slug] || "classic"
-      };
-    }
-  });
-
-  const modernContainer = document.getElementById("modernBrands");
-  const classicContainer = document.getElementById("classicBrands");
-  const specialContainer = document.getElementById("specialBrands");
-
-  modernContainer.innerHTML = "";
-  classicContainer.innerHTML = "";
-  specialContainer.innerHTML = "";
-
-  Object.values(brands).forEach(brand => {
-    const card = `
-      <div class="brand-card" onclick="goToBrand('${brand.slug}')">
-        <div class="brand-card-header">
-          <img src="${brand.logo}" class="brand-card-logo" alt="${brand.manufacturer}">
-        </div>
-        <div class="brand-card-body">
-          <h3>${brand.manufacturer}</h3>
-          <p class="brand-meta"><strong>Founded:</strong> ${brand.brand_founded}</p>
-          <p class="brand-meta"><strong>HQ:</strong> ${brand.brand_headquarters}</p>
-        </div>
-      </div>
-    `;
-
-    if (brand.heritage_group === "modern") {
-      modernContainer.innerHTML += card;
-    } else if (brand.heritage_group === "special") {
-      specialContainer.innerHTML += card;
+    const gallerySection = $("model-gallery")?.closest(".details-section");
+    if (gallerySection && gallerySection.parentNode) {
+      gallerySection.parentNode.insertBefore(videosHost, gallerySection);
     } else {
-      classicContainer.innerHTML += card;
+      document.querySelector(".page-container")?.appendChild(videosHost);
     }
-  });
+  }
+  renderVideos(model.videos, videosHost);
+
+  const backBtn = $("back-to-brand");
+  if (backBtn) backBtn.onclick = () => goToBrand(model.slug);
 }
 
-// ===============================
-// PHASE 2 — VIEW TOGGLE SYSTEM
-// ===============================
+// ============================================================
+// BRITISH RACING — View toggle + Timeline
+// ============================================================
 function setupViewToggle() {
-  const timelineBtn = document.getElementById("timeline-btn");
-  const brandBtn = document.getElementById("brand-btn");
-  const driversBtn = document.getElementById("drivers-btn");
+  const timelineBtn = $("timeline-btn");
+  const brandBtn = $("brand-btn");
+  const driversBtn = $("drivers-btn");
 
-  const timelineView = document.getElementById("timeline-view");
-  const brandView = document.getElementById("brand-view");
-  const driversView = document.getElementById("drivers-view");
+  const timelineView = $("timeline-view");
+  const brandView = $("brand-view");
+  const driversView = $("drivers-view");
 
-  // Default view
-  timelineView.classList.remove("hidden");
-  brandView.classList.add("hidden");
-  driversView.classList.add("hidden");
+  if (!timelineBtn || !brandBtn || !driversBtn || !timelineView || !brandView || !driversView) return;
 
-  // Timeline
-  timelineBtn.addEventListener("click", () => {
-    timelineBtn.classList.add("active");
-    brandBtn.classList.remove("active");
-    driversBtn.classList.remove("active");
-
-    timelineView.classList.remove("hidden");
-    brandView.classList.add("hidden");
-    driversView.classList.add("hidden");
-
-    timelineView.classList.add("fade-in");
-  });
-
-  // Brand
-  brandBtn.addEventListener("click", () => {
-    brandBtn.classList.add("active");
-    timelineBtn.classList.remove("active");
-    driversBtn.classList.remove("active");
-
-    brandView.classList.remove("hidden");
-    timelineView.classList.add("hidden");
-    driversView.classList.add("hidden");
-
-    brandView.classList.add("fade-in");
-  });
-
-  // Drivers
-  driversBtn.addEventListener("click", () => {
-    driversBtn.classList.add("active");
-    timelineBtn.classList.remove("active");
-    brandBtn.classList.remove("active");
-
-    driversView.classList.remove("hidden");
-    timelineView.classList.add("hidden");
-    brandView.classList.add("hidden");
-
-    driversView.classList.add("fade-in");
-  });
-}
-function setupTeamSelection() {
-  const cards = document.querySelectorAll(".team-card");
-  const container = document.getElementById("team-info-container");
-
-  cards.forEach(card => {
-    card.addEventListener("click", () => {
-      const team = card.dataset.team;
-      const template = document.getElementById(`team-${team}`);
-
-      if (template) {
-        container.innerHTML = "";
-        container.appendChild(template.content.cloneNode(true));
-      }
-    });
-  });
-}
-// ===============================
-// BRITISH RACING — VIEW TOGGLE
-// ===============================
-function setupViewToggle() {
-  const timelineBtn = document.getElementById("timeline-btn");
-  const brandBtn = document.getElementById("brand-btn");
-  const driversBtn = document.getElementById("drivers-btn");
-
-  const timelineView = document.getElementById("timeline-view");
-  const brandView = document.getElementById("brand-view");
-  const driversView = document.getElementById("drivers-view");
-
-  // ⭐ ALWAYS start hidden
+  // Start hidden (per your spec)
   timelineView.classList.add("hidden");
   brandView.classList.add("hidden");
   driversView.classList.add("hidden");
 
-  // ⭐ Remove active state from all buttons
   function clearActive() {
     timelineBtn.classList.remove("active");
     brandBtn.classList.remove("active");
     driversBtn.classList.remove("active");
   }
 
-  // ⭐ Timeline button
   timelineBtn.addEventListener("click", () => {
     clearActive();
     timelineBtn.classList.add("active");
-
     timelineView.classList.remove("hidden");
     brandView.classList.add("hidden");
     driversView.classList.add("hidden");
+    timelineView.classList.add("fade-in");
   });
 
-  // ⭐ Brand View button
   brandBtn.addEventListener("click", () => {
     clearActive();
     brandBtn.classList.add("active");
-
     brandView.classList.remove("hidden");
     timelineView.classList.add("hidden");
     driversView.classList.add("hidden");
+    brandView.classList.add("fade-in");
   });
 
-  // ⭐ Drivers button
   driversBtn.addEventListener("click", () => {
+    // If your HTML uses inline onclick redirect to hof-drivers.html, redirect will win.
     clearActive();
     driversBtn.classList.add("active");
-
     driversView.classList.remove("hidden");
     timelineView.classList.add("hidden");
     brandView.classList.add("hidden");
+    driversView.classList.add("fade-in");
   });
 }
 
-
-
-
-// ===============================
-// PHASE 3 — TIMELINE VIEW LOGIC
-// ===============================
 function setupTimeline() {
   const eras = document.querySelectorAll(".timeline-era");
-  const detailsBox = document.getElementById("timeline-details");
+  const detailsBox = $("timeline-details");
+  if (!eras.length || !detailsBox) return;
 
   const eraContent = {
     "1900s": `
@@ -404,16 +556,16 @@ function setupTimeline() {
     era.addEventListener("click", () => {
       eras.forEach(e => e.classList.remove("active"));
       era.classList.add("active");
-
       const key = era.dataset.era;
       detailsBox.innerHTML = eraContent[key] || "<p>No data available.</p>";
       detailsBox.classList.add("fade-in");
     });
   });
 }
-// ===============================
-// PHASE 4 — RACING GALLERIES
-// ===============================
+
+// ============================================================
+// RACING GALLERIES (HOF Teams templates)
+// ============================================================
 function loadBrandRacingGalleries() {
   const galleries = {
     "lotus-gallery": [
@@ -444,65 +596,49 @@ function loadBrandRacingGalleries() {
     if (!container) return;
 
     container.innerHTML = images
-      .map(img => `<img src="${img}" onclick="openLightbox('${img}')">`)
+      .map(img => `<img src="${img}" alt="Racing photo" onclick="openLightbox('${img}')">`)
       .join("");
   });
 }
-// ===============================
-// PHASE 5 Driver Logic
-// ===============================
+
+// ============================================================
+// DRIVERS — British Racing side panel (optional)
+// ============================================================
 function setupDrivers() {
-  const cards = document.querySelectorAll(".driver-card");
-  const panel = document.getElementById("driver-panel");
-  const overlay = document.getElementById("driver-panel-overlay");
-  const closeBtn = document.getElementById("driver-panel-close");
-  const content = document.getElementById("driver-panel-content");
+  const cards = document.querySelectorAll(".driver-card, .drivers-view-card");
+  const panel = $("driver-panel");
+  const overlay = $("driver-panel-overlay");
+  const closeBtn = $("driver-panel-close");
+  const content = $("driver-panel-content");
+
+  if (!cards.length || !panel || !overlay || !closeBtn || !content) return;
 
   const driverData = {
     clark: {
       name: "Jim Clark",
       bio: "Two-time F1 World Champion and one of the most naturally gifted drivers in history.",
-      highlights: [
-        "F1 World Champion: 1963, 1965",
-        "Indianapolis 500 winner: 1965",
-        "Lotus legend and master of smooth speed"
-      ]
+      highlights: ["F1 World Champion: 1963, 1965", "Indianapolis 500 winner: 1965", "Lotus legend and master of smooth speed"],
+
     },
     stewart: {
       name: "Jackie Stewart",
       bio: "Triple World Champion and a pioneer of safety in motorsport.",
-      highlights: [
-        "F1 World Champion: 1969, 1971, 1973",
-        "Known as 'The Flying Scot'",
-        "Instrumental in improving F1 safety standards"
-      ]
+      highlights: ["F1 World Champion: 1969, 1971, 1973", "Known as 'The Flying Scot'", "Instrumental in improving F1 safety standards"]
     },
     hamilton: {
       name: "Lewis Hamilton",
       bio: "One of the most successful drivers in F1 history, redefining modern British motorsport.",
-      highlights: [
-        "Multiple F1 World Championships",
-        "Holds numerous pole and win records",
-        "Iconic partnership with Mercedes"
-      ]
+      highlights: ["Multiple F1 World Championships", "Holds numerous pole and win records", "Iconic partnership with Mercedes"]
     },
     moss: {
       name: "Stirling Moss",
       bio: "Often called the greatest driver never to win the World Championship.",
-      highlights: [
-        "16 Grand Prix wins",
-        "Versatile across sports cars and single-seaters",
-        "Synonymous with gentleman racing spirit"
-      ]
+      highlights: ["16 Grand Prix wins", "Versatile across sports cars and single-seaters", "Synonymous with gentleman racing spirit"]
     },
     mansell: {
       name: "Nigel Mansell",
       bio: "Aggressive, emotional, and spectacularly fast—beloved by British fans.",
-      highlights: [
-        "F1 World Champion: 1992",
-        "CART IndyCar World Series Champion: 1993",
-        "Known for dramatic wheel-to-wheel battles"
-      ]
+      highlights: ["F1 World Champion: 1992", "CART IndyCar World Series Champion: 1993", "Known for dramatic wheel-to-wheel battles"]
     }
   };
 
@@ -514,10 +650,15 @@ function setupDrivers() {
       <h3>${d.name}</h3>
       <p>${d.bio}</p>
       <h4>Highlights</h4>
-      <ul>
-        ${d.highlights.map(h => `<li>${h}</li>`).join("")}
-      </ul>
+      <ul>${d.highlights.map(h => `<li>${h}</li>`).join("")}</ul>
     `;
+
+    if (Array.isArray(d.videos) && d.videos.length) {
+      const videosWrap = document.createElement("div");
+      videosWrap.className = "details-section";
+      content.appendChild(videosWrap);
+      renderVideos(d.videos, videosWrap);
+    }
 
     panel.classList.add("active");
     overlay.classList.add("active");
@@ -531,7 +672,7 @@ function setupDrivers() {
   cards.forEach(card => {
     card.addEventListener("click", () => {
       const key = card.dataset.driver;
-      openDriver(key);
+      if (key) openDriver(key);
     });
   });
 
@@ -539,112 +680,69 @@ function setupDrivers() {
   overlay.addEventListener("click", closeDriver);
 }
 
+// ============================================================
+// HOF DRIVERS — Modal popup (hof-drivers.html)
+// ============================================================
 function setupHofDrivers() {
-  const modal = document.getElementById("driver-modal");
-  const modalBody = document.getElementById("driver-modal-body");
-  const closeBtn = document.getElementById("driver-modal-close");
+  const modal = $("driver-modal");
+  const modalBody = $("driver-modal-body");
+  const closeBtn = $("driver-modal-close");
+  if (!modal || !modalBody || !closeBtn) return;
 
   const driverData = {
-    clark: {
-      name: "Jim Clark",
-      bio: "Two-time F1 World Champion and one of the most naturally gifted drivers in history.",
-      highlights: [
+    clark: { name: "Jim Clark",
+       bio: "Two-time F1 World Champion and one of the most naturally gifted drivers in history.",
+       highlights: [
         "F1 World Champion: 1963, 1965",
         "Indianapolis 500 winner: 1965",
         "Lotus legend and master of smooth speed"
+      ],
+        videos: [
+        { title: "Jim Clark's Greatest Moments", youtube: "https://youtu.be/E3PTlDr_-00?si=TJ3UA51NxaTarYkc" }
       ]
-    },
-    stewart: {
-      name: "Jackie Stewart",
-      bio: "Triple World Champion and a pioneer of safety in motorsport.",
-      highlights: [
-        "F1 World Champion: 1969, 1971, 1973",
-        "Known as 'The Flying Scot'",
-        "Instrumental in improving F1 safety standards"
-      ]
-    },
-    hamilton: {
-      name: "Lewis Hamilton",
+     },
+    
+    stewart: { name: "Jackie Stewart", bio: "Triple World Champion and a pioneer of safety in motorsport.", highlights: ["F1 World Champion: 1969, 1971, 1973", "Known as 'The Flying Scot'", "Instrumental in improving F1 safety standards"] },
+    
+    hamilton: { name: "Lewis Hamilton",
       bio: "One of the most successful drivers in F1 history.",
       highlights: [
         "Multiple F1 World Championships",
         "Holds numerous pole and win records",
         "Iconic partnership with Mercedes"
+      ],
+        videos: [
+        { title: "Lewis Hamilton's Greatest Moments", youtube: "https://youtu.be/we4VBW99LoU?si=_AUvZ07i2V-GjMSN" }
       ]
+    
     },
-    moss: {
-      name: "Stirling Moss",
-      bio: "Often called the greatest driver never to win the World Championship.",
-      highlights: [
-        "16 Grand Prix wins",
-        "Versatile across sports cars and single-seaters",
-        "Synonymous with gentleman racing spirit"
-      ]
-    },
-    mansell: {
-      name: "Nigel Mansell",
-      bio: "Aggressive, emotional, and spectacularly fast.",
-      highlights: [
-        "F1 World Champion: 1992",
-        "CART IndyCar World Series Champion: 1993",
-        "Known for dramatic wheel-to-wheel battles"
-      ]
-    },
-    ghill: {
-      name: "Graham Hill",
-      bio: "The only driver to win the Triple Crown of Motorsport.",
-      highlights: [
-        "F1 World Champion: 1962, 1968",
-        "Indianapolis 500 winner: 1966",
-        "Le Mans 24 Hours winner: 1972"
-      ]
-    },
-    button: {
-      name: "Jenson Button",
-      bio: "Smooth, strategic, and universally respected.",
-      highlights: [
-        "F1 World Champion: 2009",
-        "15 Grand Prix wins",
-        "Known for tire management mastery"
-      ]
-    },
-    dhill: {
-      name: "Damon Hill",
-      bio: "Son of Graham Hill and a determined champion.",
-      highlights: [
-        "F1 World Champion: 1996",
-        "22 Grand Prix wins",
-        "Known for resilience and consistency"
-      ]
-    },
-    hawthorn: {
-      name: "Mike Hawthorn",
-      bio: "Britain’s first Formula One World Champion.",
-      highlights: [
-        "F1 World Champion: 1958",
-        "Known for his bow tie and fearless driving",
-        "Le Mans competitor"
-      ]
-    },
-    surtees: {
-      name: "John Surtees",
-      bio: "The only person to win world titles on motorcycles and in Formula One.",
-      highlights: [
-        "F1 World Champion: 1964",
-        "Multiple motorcycle world titles",
-        "A uniquely versatile champion"
-      ]
-    }
+    moss: { name: "Stirling Moss", bio: "Often called the greatest driver never to win the World Championship.", highlights: ["16 Grand Prix wins", "Versatile across sports cars and single-seaters", "Synonymous with gentleman racing spirit"] },
+    mansell: { name: "Nigel Mansell", bio: "Aggressive, emotional, and spectacularly fast.", highlights: ["F1 World Champion: 1992", "CART IndyCar World Series Champion: 1993", "Known for dramatic wheel-to-wheel battles"] },
+    ghill: { name: "Graham Hill", bio: "The only driver to win the Triple Crown of Motorsport.", highlights: ["F1 World Champion: 1962, 1968", "Indianapolis 500 winner: 1966", "Le Mans 24 Hours winner: 1972"] },
+    button: { name: "Jenson Button", bio: "Smooth, strategic, and universally respected.", highlights: ["F1 World Champion: 2009", "15 Grand Prix wins", "Known for tire management mastery"] },
+    dhill: { name: "Damon Hill", bio: "Son of Graham Hill and a determined champion.", highlights: ["F1 World Champion: 1996", "22 Grand Prix wins", "Known for resilience and consistency"] },
+    hawthorn: { name: "Mike Hawthorn", bio: "Britain’s first Formula One World Champion.", highlights: ["F1 World Champion: 1958", "Known for his bow tie and fearless driving", "Le Mans competitor"] },
+    surtees: { name: "John Surtees", bio: "The only person to win world titles on motorcycles and in Formula One.", highlights: ["F1 World Champion: 1964", "Multiple motorcycle world titles", "A uniquely versatile champion"] }
   };
 
   function openDriver(key) {
     const d = driverData[key];
+    if (!d) return;
+
     modalBody.innerHTML = `
       <h2>${d.name}</h2>
       <p>${d.bio}</p>
       <h3>Highlights</h3>
       <ul>${d.highlights.map(h => `<li>${h}</li>`).join("")}</ul>
     `;
+
+    if (Array.isArray(d.videos) && d.videos.length) {
+      const videosWrap = document.createElement("div");
+      videosWrap.className = "details-section";
+      modalBody.appendChild(videosWrap);
+      renderVideos(d.videos, videosWrap);
+    }
+
     modal.classList.add("active");
   }
 
@@ -658,12 +756,179 @@ function setupHofDrivers() {
   });
 }
 
+// ============================================================
+// HOF TEAMS — Template selection (hof-teams.html)
+// ============================================================
+function setupTeamSelection() {
+  const cards = document.querySelectorAll(".team-card");
+  const container = $("team-info-container");
+  if (!cards.length || !container) return;
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const team = card.dataset.team;
+      const template = $(`team-${team}`);
+      if (template && template.content) {
+        container.innerHTML = "";
+        container.appendChild(template.content.cloneNode(true));
+        loadBrandRacingGalleries(); // populate galleries after injection
+      }
+    });
+  });
+}
+
+// ============================================================
+// MAP PAGE — UK Brand Headquarters
+// ============================================================
+function setupBrandMap() {
+  const mapEl = document.getElementById("uk-map");
+  if (!mapEl) return;
+
+  // Approximate UK bounding box (SW → NE)
+  const ukBounds = L.latLngBounds(
+    [49.8, -8.6],  // Southwest (Cornwall)
+    [60.9, 1.8]    // Northeast (Shetland)
+  );
+
+  const map = L.map("uk-map", {
+    maxBounds: ukBounds,
+    maxBoundsViscosity: 0.9, // gentle resistance at edges
+    scrollWheelZoom: false
+  });
+
+  // Fit map to UK bounds with padding
+  map.fitBounds(ukBounds, { padding: [40, 40] });
+  map.setMinZoom(5);
+  map.setMaxZoom(10);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
+
+  function createBrandIcon(slug) {
+    return L.icon({
+      iconUrl: `images/brand-logos/${slug}.png`,
+      iconSize: [48, 48],
+      iconAnchor: [24, 24],
+      popupAnchor: [0, -22],
+      className: "brand-map-icon"
+    });
+  }
+
+  // Brand HQ coordinates (curated)
+  const brandHQs = [
+    { name: "Aston Martin", slug: "aston-martin", lat: 51.7482, lng: -0.9736, location: "Gaydon" },
+    { name: "Bentley", slug: "bentley", lat: 53.0639, lng: -2.5209, location: "Crewe" },
+    { name: "Jaguar", slug: "jaguar", lat: 52.4068, lng: -1.5197, location: "Coventry" },
+    { name: "Land Rover", slug: "land-rover", lat: 52.4068, lng: -1.5197, location: "Coventry" },
+    { name: "Lotus", slug: "lotus", lat: 52.5662, lng: 1.2974, location: "Hethel" },
+    { name: "McLaren", slug: "mclaren", lat: 51.3480, lng: -0.5589, location: "Woking" },
+    { name: "MINI", slug: "mini", lat: 51.8974, lng: -2.0810, location: "Oxford" },
+    { name: "Rolls‑Royce", slug: "rolls-royce", lat: 51.1287, lng: -0.1180, location: "Goodwood" },
+    { name: "Morgan", slug: "morgan", lat: 52.1123, lng: -2.3384, location: "Malvern Link" },
+    { name: "TVR", slug: "tvr", lat: 51.7395, lng: -3.5194, location: "Wales" },
+    { name: "AC Cars", slug: "ac-cars", lat: 51.3895, lng: -0.3222, location: "Thames Ditton, Surrey"},
+    { name: "MG", slug: "mg", lat: 51.6717, lng: -1.2968, location: "Abingdon‑on‑Thames"},
+    { name: "Triumph", slug: "triumph", lat: 52.4068, lng: -1.5197, location: "Coventry"},
+    { name: "Rover", slug: "rover", lat: 52.4079, lng: -1.9755, location: "Longbridge, Birmingham"},
+    { name: "Austin", slug: "austin", lat: 52.4079, lng: -1.9755, location: "Longbridge, Birmingham"},
+    { name: "Vauxhall", slug: "vauxhall", lat: 51.8787, lng: -0.3763, location: "Luton"},
+    { name: "Reliant", slug: "reliant", lat: 52.6379, lng: -1.6954, location: "Tamworth"},
+    { name: "Hillman", slug: "hillman", lat: 52.3797, lng: -1.4696, location: "Ryton‑on‑Dunsmore"},
+   { name: "Bristol", slug: "bristol", lat: 51.5193, lng: -2.5824, location: "Filton, Bristol"},
+   { name: "Caterham", slug: "caterham", lat: 51.4629, lng: 0.2360, location: "Dartford, Kent"},
+   { name: "Austin‑Healey", slug: "austin-healey", lat: 52.4079, lng: -1.9755, location: "Longbridge, Birmingham"},
+    { name: "Daimler", slug: "daimler", lat: 52.4068, lng: -1.5197, location: "Coventry"},
+   { name: "Jensen",
+  slug: "jensen",
+  lat: 52.5146,
+  lng: -1.9947,
+  location: "West Bromwich"
+},
+
+// Morris — Cowley, Oxford
+{
+  name: "Morris",
+  slug: "morris",
+  lat: 51.7280,
+  lng: -1.2140,
+  location: "Cowley, Oxford"
+},
+
+// Riley — Coventry
+{
+  name: "Riley",
+  slug: "riley",
+  lat: 52.4068,
+  lng: -1.5197,
+  location: "Coventry"
+},
+
+// Sunbeam — Wolverhampton
+{
+  name: "Sunbeam",
+  slug: "sunbeam",
+  lat: 52.5862,
+  lng: -2.1286,
+  location: "Wolverhampton"
+},
+
+// Wolseley — Birmingham (Adderley Park)
+{
+  name: "Wolseley",
+  slug: "wolseley",
+  lat: 52.4746,
+  lng: -1.8415,
+  location: "Adderley Park, Birmingham"
+}
 
 
-// ===============================
+  ];
+
+  brandHQs.forEach((b, i) => {
+    const marker = L.marker([b.lat, b.lng], {
+      icon: createBrandIcon(b.slug),
+      riseOnHover: true
+    }).addTo(map);
+
+    // Drop-in animation (staggered)
+    marker.on("add", () => {
+      if (marker._icon) {
+        setTimeout(() => marker._icon.classList.add("drop-in"), 40 * i);
+      }
+    });
+
+    marker.bindPopup(`
+      <strong>${b.name}</strong><br>
+      ${b.location}<br><br>
+      <a href="brand.html?brand=${b.slug}">View Brand →</a>
+    `);
+
+    
+  // ✅ Hover label (brand name)
+  marker.bindTooltip(b.name, {
+    direction: "top",
+    offset: [0, -28],
+    opacity: 0.95,
+    sticky: false
+  });
+
+
+    // Highlight marker while popup is open
+    marker.on("popupopen", () => {
+      if (marker._icon) marker._icon.classList.add("is-active");
+    });
+
+    marker.on("popupclose", () => {
+      if (marker._icon) marker._icon.classList.remove("is-active");
+    });
+  });
+}
+
+
+// ============================================================
 // PAGE INITIALIZATION
-// ===============================
-
+// ============================================================
 document.addEventListener("DOMContentLoaded", () => {
   const page = document.body.getAttribute("data-page");
 
@@ -681,22 +946,50 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   if (page === "british-racing") {
-    console.log("British Racing page loaded");
     setupViewToggle();
     setupTimeline();
     loadBrandRacingGalleries();
     setupDrivers();
   }
 
-
   if (page === "hof-teams") {
-    setupTeamSelection();   // ⭐ ADD THIS HERE
+    setupTeamSelection();
   }
 
-if (page === "hof-drivers") {
-  setupHofDrivers();
-}
+  if (page === "hof-drivers") {
+    setupHofDrivers();
 
+    // ------------------------------------------------------------
+    // HOF DRIVERS GRID — SCROLL-IN ANIMATION (only on HOF page)
+    // ------------------------------------------------------------
+    const hofGrid = document.querySelector(".hof-drivers-grid");
+    if (hofGrid && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target); // animate once
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
 
+      observer.observe(hofGrid);
+    }
+  }
 
+  // ✅ Map page init
+  if (page === "map") {
+    // Guard in case Leaflet didn't load for any reason
+    if (typeof L !== "undefined") {
+      setupBrandMap();
+    } else {
+      console.error("Leaflet (L) not found. Check Leaflet script include in map.html.");
+    }
+  }
+
+  // hof-cars: navigation-only
 });
+
