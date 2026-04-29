@@ -1480,75 +1480,115 @@ body.drivers-page .driver-panel-close {
 }
 
 /* ============================================================
-   Map Mobile Safeguard — Ensure the map doesn't become too small on narrow screens
+   MAP — RESET LEAFLET divIcon DEFAULTS (CRITICAL)
    ============================================================ */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   MAP — BRAND MARKERS (CLEAN + CENTERED + ANIMATED)
+   ============================================================ */
+
+/* --- Mobile height safeguard --- */
 @media (max-width: 768px) {
   #uk-map {
     height: 60vh;
   }
 }
 
-/* ============================================================
-   MAP — BRAND LOGO MARKERS
-   ============================================================ */
 
-.brand-map-icon {
+
+/* --- Inner logo image (we animate THIS) --- */
+.brand-map-logo {
+  width: 100%;
+  height: 100%;
+
+  padding: 6px;
+  box-sizing: border-box;
+
+  object-fit: contain;
   border-radius: 50%;
-  background: #0b0b0b;
-  border: 2px solid var(--accent-gold);
-  box-shadow:
-    0 0 0 2px rgba(212, 175, 55, 0.35),
-    0 4px 12px rgba(0, 0, 0, 0.6);
+
+  transition: transform 160ms ease, filter 160ms ease;
+  transform-origin: center;
 }
-.leaflet-marker-icon.brand-map-icon:hover {
-  transform: scale(1.1);
-  transition: transform 0.2s ease;
+
+/* --- Hover zoom (logo only, never wrapper) --- */
+.brand-map-icon:hover .brand-map-logo {
+  transform: scale(1.28);
+  filter: drop-shadow(0 0 10px rgba(212,175,55,0.35));
 }
+
+/* --- Active (popup open) --- */
+.brand-map-icon.is-active .brand-map-logo {
+  transform: scale(1.12);
+}
+
 /* ============================================================
-   MAP — LOGO MARKERS: DROP-IN + ACTIVE HIGHLIGHT
+   MAP — DROP-IN ANIMATION
    ============================================================ */
 
-/* Drop-in animation (subtle, museum-grade) */
 @keyframes markerDropIn {
-  0%   { transform: translateY(-10px) scale(0.98); opacity: 0; }
+  0%   { transform: translateY(-10px) scale(0.96); opacity: 0; }
   70%  { transform: translateY(2px)  scale(1.02); opacity: 1; }
   100% { transform: translateY(0)    scale(1.00); opacity: 1; }
 }
 
-/* Base logo marker frame (you already have something similar; keep yours if present) */
-.brand-map-icon {
-  border-radius: 50%;
-  background: #0b0b0b;
-  border: 2px solid var(--accent-gold);
-  box-shadow:
-    0 0 0 2px rgba(212, 175, 55, 0.25),
-    0 4px 12px rgba(0, 0, 0, 0.6);
-  transform-origin: center;
-}
-
-/* Apply drop-in once */
 .brand-map-icon.drop-in {
   animation: markerDropIn 420ms ease-out both;
 }
 
-/* Active (popup open) highlight */
-.brand-map-icon.is-active {
-  box-shadow:
-    0 0 0 3px rgba(212, 175, 55, 0.55),
-    0 0 18px rgba(212, 175, 55, 0.25),
-    0 10px 22px rgba(0, 0, 0, 0.75);
-  transform: scale(1.08);
-}
-
-/* Optional: reduce motion */
+/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .brand-map-icon.drop-in {
     animation: none;
   }
-  .brand-map-icon.is-active {
+  .brand-map-icon:hover .brand-map-logo,
+  .brand-map-icon.is-active .brand-map-logo {
     transform: none;
   }
 }
+
+/* ============================================================
+   MAP — BRAND GROUP GLOW COLORS
+   ============================================================ */
+
+/* Modern — Gold */
+.brand-map-modern {
+  border-color: rgba(212, 175, 55, 0.85);
+}
+.brand-map-icon.is-active.brand-map-modern {
+  box-shadow:
+    0 0 0 3px rgba(212,175,55,0.55),
+    0 0 18px rgba(212,175,55,0.25),
+    0 10px 22px rgba(0,0,0,0.75);
+}
+
+/* Special — Red */
+.brand-map-special {
+  border-color: rgba(176, 0, 0, 0.85);
+}
+.brand-map-icon.is-active.brand-map-special {
+  box-shadow:
+    0 0 0 3px rgba(176,0,0,0.55),
+    0 0 18px rgba(176,0,0,0.25),
+    0 10px 22px rgba(0,0,0,0.75);
+}
+
+/* Classic — Green */
+.brand-map-classic {
+  border-color: rgba(11, 46, 19, 0.95);
+}
+.brand-map-icon.is-active.brand-map-classic {
+  box-shadow:
+    0 0 0 3px rgba(11,46,19,0.55),
+    0 0 18px rgba(11,46,19,0.25),
+    0 10px 22px rgba(0,0,0,0.75);
+}
+
 /* ============================================================
    MAP — BRAND NAME HOVER TOOLTIPS
    ============================================================ */
@@ -1556,72 +1596,18 @@ body.drivers-page .driver-panel-close {
 .leaflet-tooltip {
   background: rgba(10, 15, 13, 0.92);
   color: var(--accent-gold);
+
   border: 1px solid rgba(212, 175, 55, 0.6);
   border-radius: 8px;
+
   padding: 6px 10px;
   font-size: 0.85rem;
   font-weight: 600;
+
   box-shadow: 0 6px 16px rgba(0,0,0,0.6);
-  pointer-events: none; /* prevents flicker */
+  pointer-events: none;
 }
 
 .leaflet-tooltip-top::before {
   border-top-color: rgba(212, 175, 55, 0.6);
-}
-
-/* ============================================================
-   MAP — MARKER GLOW COLOR BY BRAND GROUP
-   ============================================================ */
-
-.brand-map-icon {
-  border-radius: 50%;
-  background: #0b0b0b;
-  border: 2px solid rgba(212, 175, 55, 0.55);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-}
-
-/* MODERN (Gold) */
-.brand-map-modern {
-  border-color: rgba(212, 175, 55, 0.85);
-  box-shadow:
-    0 0 0 2px rgba(212, 175, 55, 0.25),
-    0 6px 16px rgba(0,0,0,0.65);
-}
-
-/* SPECIAL (Red) */
-.brand-map-special {
-  border-color: rgba(176, 0, 0, 0.85);
-  box-shadow:
-    0 0 0 2px rgba(176, 0, 0, 0.25),
-    0 6px 16px rgba(0,0,0,0.65);
-}
-
-/* CLASSIC (Green) */
-.brand-map-classic {
-  border-color: rgba(11, 46, 19, 0.95);
-  box-shadow:
-    0 0 0 2px rgba(11, 46, 19, 0.25),
-    0 6px 16px rgba(0,0,0,0.65);
-}
-
-/* Popup-open highlight (adds a stronger halo without changing the core color) */
-.brand-map-icon.is-active.brand-map-modern {
-  box-shadow:
-    0 0 0 3px rgba(212, 175, 55, 0.55),
-    0 0 18px rgba(212, 175, 55, 0.25),
-    0 10px 22px rgba(0,0,0,0.75);
-}
-
-.brand-map-icon.is-active.brand-map-special {
-  box-shadow:
-    0 0 0 3px rgba(176, 0, 0, 0.55),
-    0 0 18px rgba(176, 0, 0, 0.25),
-    0 10px 22px rgba(0,0,0,0.75);
-}
-
-.brand-map-icon.is-active.brand-map-classic {
-  box-shadow:
-    0 0 0 3px rgba(11, 46, 19, 0.55),
-    0 0 18px rgba(11, 46, 19, 0.25),
-    0 10px 22px rgba(0,0,0,0.75);
 }
