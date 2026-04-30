@@ -569,25 +569,25 @@ function setupTimeline() {
 function loadBrandRacingGalleries() {
   const galleries = {
     "lotus-gallery": [
-      "images/racing/lotus/lotus49-1.jpg",
-      "images/racing/lotus/lotus49-2.jpg",
-      "images/racing/lotus/lotus72-1.jpg",
-      "images/racing/lotus/lotus79-1.jpg"
+      "images/cars/lotus/49/1.jpg",
+      "images/cars/lotus/49/2.jpg",
+      "images/cars/lotus/72/1.jpg",
+      "images/cars/lotus/79/1.jpg"
     ],
     "mclaren-gallery": [
-      "images/racing/mclaren/mp44-1.jpg",
-      "images/racing/mclaren/mp44-2.jpg",
-      "images/racing/mclaren/f1gtr-1.jpg"
+      "images/cars/mclaren/mp4/1.jpg",
+      "images/cars/mclaren/mp4/2.jpg",
+      "images/cars/mclaren/f1/1.jpg"
     ],
     "jaguar-gallery": [
-      "images/racing/jaguar/dtype-1.jpg",
-      "images/racing/jaguar/xjr9-1.jpg",
-      "images/racing/jaguar/xjr12-1.jpg"
+      "images/cars/jaguar/d-type/1.jpg",
+      "images/cars/jaguar/xjr-9/1.jpg",
+      "images/cars/jaguar/xjr-12/1.jpg"
     ],
     "bentley-gallery": [
-      "images/racing/bentley/speedsix-1.jpg",
-      "images/racing/bentley/speed8-1.jpg",
-      "images/racing/bentley/speedsix-2.jpg"
+      "images/cars/bentley/speed-six/race.jpg",
+      "images/cars/bentley/speed-eight/2.jpg",
+      "images/cars/bentley/speed-eight/1.jpg"
     ]
   };
 
@@ -776,6 +776,19 @@ function setupTeamSelection() {
     });
   });
 }
+function setupRacingCarLinks() {
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".racing-car-card");
+    if (!card) return;
+
+    const brand = card.dataset.brand;
+    const model = card.dataset.model;
+
+    if (brand && model) {
+      goToModel(brand, model);
+    }
+  });
+}
 
 // ============================================================
 // MAP PAGE — UK Brand Headquarters
@@ -805,15 +818,22 @@ function setupBrandMap() {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  function createBrandIcon(slug) {
-    return L.icon({
-      iconUrl: `images/brand-logos/${slug}.png`,
-      iconSize: [48, 48],
-      iconAnchor: [24, 24],
-      popupAnchor: [0, -22],
-      className: "brand-map-icon"
-    });
-  }
+function createBrandIcon(slug) {
+  return L.divIcon({
+    className: "brand-map-icon",     // wrapper class (Leaflet moves this)
+    iconSize: [48, 48],
+    iconAnchor: [24, 24],
+    popupAnchor: [0, -22],
+    html: `
+      <img
+        src="images/brand-logos/${slug}.png"
+        alt="${slug}"
+        class="brand-map-logo"
+        draggable="false"
+      />
+    `
+  });
+}
 
   // Brand HQ coordinates (curated)
   const brandHQs = [
@@ -913,15 +933,23 @@ function setupBrandMap() {
     sticky: false
   });
 
+ // Highlight marker while popup is open (ULTRA SAFE)
+marker.on("popupopen", () => {
+  const el = marker.getElement?.();
+  if (el && el.classList) {
+    el.classList.add("is-active");
+  }
+});
 
-    // Highlight marker while popup is open
-    marker.on("popupopen", () => {
-      if (marker._icon) marker._icon.classList.add("is-active");
-    });
+marker.on("popupclose", () => {
+  const el = marker.getElement?.();
+  if (el && el.classList) {
+    el.classList.remove("is-active");
+  }
+});
+ 
 
-    marker.on("popupclose", () => {
-      if (marker._icon) marker._icon.classList.remove("is-active");
-    });
+
   });
 }
 
@@ -954,10 +982,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (page === "hof-teams") {
     setupTeamSelection();
+      setupRacingCarLinks();
   }
 
   if (page === "hof-drivers") {
     setupHofDrivers();
+
+    
 
     // ------------------------------------------------------------
     // HOF DRIVERS GRID — SCROLL-IN ANIMATION (only on HOF page)

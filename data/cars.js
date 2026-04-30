@@ -1591,6 +1591,54 @@ const britishCars = [
     "images/cars/bentley/speed-six/3.jpg"
   ]
 },
+// Bentley Speed 8
+{
+  manufacturer: "Bentley",
+  slug: "bentley",
+  brand_group: "Endurance Racing",
+  brand_url: "https://www.bentleymotors.com",
+  heritage_group: "special",
+  model: "Speed Eight",
+  model_slug: "speed-eight",
+  model_summary: "A modern endurance‑racing prototype that marked Bentley’s triumphant return to Le Mans, combining advanced aerodynamics with Audi‑derived V8 turbo power.",
+  years_produced: "2001–2003",
+  engine: "4.0L V8 Twin‑Turbo",
+  horsepower: "≈600",
+  top_speed_mph: 220,
+  body_style: "Le Mans Prototype (LMGTP)",
+  drivetrain: "RWD",
+  transmission: "6‑speed sequential manual",
+  seating: 1,
+  production_location: "Norfolk, England",
+  designer: "Peter Elleray",
+  price_when_new: "Factory race prototype",
+  current_value_range: "£8–12 million",
+  model_type: "endurance racing car",
+  tags: ["le mans", "prototype", "endurance", "racing", "modern"],
+  notable_details: [
+    "Developed from the EXP Speed 8 under the guidance of the Volkswagen‑Audi Group.",
+    "Featured a closed‑cockpit design for improved aerodynamic efficiency."
+  ],
+  fun_facts: [
+    "Ended Audi’s Le Mans winning streak in 2003.",
+    "One of the first modern Bentleys to race at Le Mans since 1930."
+  ],
+  notable_achievements: [
+    "Winner of the 2003 24 Hours of Le Mans.",
+    "Finished 1‑2 overall at Le Mans against factory Audi competition."
+  ],
+  variants: [
+    { name: "EXP Speed 8", years: "2001–2002", engine: "3.6L–4.0L V8 Twin‑Turbo" },
+    { name: "Speed 8", years: "2003", engine: "4.0L V8 Twin‑Turbo" }
+  ],
+  hero_image: "images/cars/bentley/speed-eight/hero.jpg",
+  image_gallery: [
+    "images/cars/bentley/speed-eight/1.jpg",
+    "images/cars/bentley/speed-eight/2.jpg",
+    "images/cars/bentley/speed-eight/3.jpg"
+  ]
+},
+
 {
   manufacturer: "Bentley",
   slug: "bentley",
@@ -3196,6 +3244,146 @@ const britishCars = [
   ]
 },
 
+// Jaguar D-Type
+{
+  manufacturer: "Jaguar",
+  slug: "jaguar",
+  brand_group: "Endurance Racing",
+  brand_url: "https://www.jaguar.co.uk",
+  heritage_group: "special",
+  model: "D-Type",
+  model_slug: "d-type",
+  model_summary: "An endurance‑racing icon that combined aviation‑inspired aerodynamics with Jaguar engineering to dominate Le Mans during the 1950s.",
+  years_produced: "1954–1957",
+  engine: "3.4L–3.8L I6",
+  horsepower: "245–285",
+  top_speed_mph: 175,
+  body_style: "Sports racing prototype",
+  drivetrain: "RWD",
+  transmission: "4‑speed manual",
+  seating: 1,
+  production_location: "Coventry, England",
+  designer: "Malcolm Sayer",
+  price_when_new: "≈£3,000",
+  current_value_range: "£20–30 million",
+  model_type: "endurance racing car",
+  tags: ["le mans", "endurance", "racing", "classic"],
+  notable_details: [
+    "Featured a revolutionary monocoque construction.",
+    "Distinctive tail fin improved high‑speed stability."
+  ],
+  fun_facts: [
+    "Inspired heavily by aircraft aerodynamic principles.",
+    "One of the most valuable collector cars in the world."
+  ],
+  notable_achievements: [
+    "Winner of the 24 Hours of Le Mans in 1955, 1956, and 1957.",
+    "One of the most successful endurance racers ever built."
+  ],
+  variants: [
+    { name: "Short‑nose D‑Type", years: "1954–1955", engine: "3.4L I6" },
+    { name: "Long‑nose D‑Type", years: "1956–1957", engine: "3.8L I6" }
+  ],
+  hero_image: "images/cars/jaguar/d-type/hero.jpg",
+  image_gallery: [
+    "images/cars/jaguar/d-type/1.jpg",
+    "images/cars/jaguar/d-type/2.jpg",
+    "images/cars/jaguar/d-type/3.jpg"
+  ]
+},
+// Jaguar XJR-9
+{
+  manufacturer: "Jaguar",
+  slug: "jaguar",
+  brand_group: "Endurance Racing",
+  brand_url: "https://www.jaguar.co.uk",
+  heritage_group: "special",
+  model: "XJR-9",
+  model_slug: "xjr-9",
+  model_summary: "A turbocharged Group C endurance prototype that returned Jaguar to the top step of Le Mans, combining brute V12 power with aerodynamic efficiency.",
+  years_produced: "1988–1989",
+  engine: "7.0L V12",
+  horsepower: "750+",
+  top_speed_mph: 220,
+  body_style: "Group C endurance prototype",
+  drivetrain: "RWD",
+  transmission: "5‑speed manual",
+  seating: 1,
+  production_location: "Coventry, England",
+  designer: "Tony Southgate",
+  price_when_new: "Factory race prototype",
+  current_value_range: "£6–9 million",
+  model_type: "endurance racing car",
+  tags: ["le mans", "group c", "endurance", "racing", "classic"],
+  notable_details: [
+    "Powered by a massive naturally‑aspirated Jaguar V12.",
+    "Developed by Tom Walkinshaw Racing (TWR)."
+  ],
+  fun_facts: [
+    "Famous for its screaming V12 soundtrack at full throttle.",
+    "Ran in both Silk Cut and Castrol liveries."
+  ],
+  notable_achievements: [
+    "Winner of the 1988 24 Hours of Le Mans.",
+    "Marked Jaguar’s first Le Mans victory since the D‑Type era."
+  ],
+  variants: [
+    { name: "XJR-9LM", years: "1988", engine: "7.0L V12" }
+  ],
+  hero_image: "images/cars/jaguar/xjr-9/hero.jpg",
+  image_gallery: [
+    "images/cars/jaguar/xjr-9/1.jpg",
+    "images/cars/jaguar/xjr-9/2.jpg",
+    "images/cars/jaguar/xjr-9/3.jpg"
+  ]
+},
+// Jaguar XJR-12
+{
+  manufacturer: "Jaguar",
+  slug: "jaguar",
+  brand_group: "Endurance Racing",
+  brand_url: "https://www.jaguar.co.uk",
+  heritage_group: "special",
+  model: "XJR-12",
+  model_slug: "xjr-12",
+  model_summary: "An evolution of Jaguar’s successful Group C program, refining the XJR‑9’s formula to deliver dominance in both IMSA and international endurance racing.",
+  years_produced: "1990",
+  engine: "7.0L V12",
+  horsepower: "730–750",
+  top_speed_mph: 215,
+  body_style: "Group C endurance prototype",
+  drivetrain: "RWD",
+  transmission: "5‑speed manual",
+  seating: 1,
+  production_location: "Coventry, England",
+  designer: "Tony Southgate",
+  price_when_new: "Factory race prototype",
+  current_value_range: "£5–8 million",
+  model_type: "endurance racing car",
+  tags: ["le mans", "group c", "endurance", "racing", "classic"],
+  notable_details: [
+    "Improved aerodynamics and reliability over the XJR‑9.",
+    "Primarily raced in IMSA competition."
+  ],
+  fun_facts: [
+    "One of the final naturally‑aspirated V12 Group C cars.",
+    "Represented the peak of Jaguar’s late‑1980s endurance era."
+  ],
+  notable_achievements: [
+    "Winner of the 1990 24 Hours of Daytona.",
+    "Confirmed Jaguar’s dominance in IMSA competition."
+  ],
+  variants: [
+    { name: "XJR-12 IMSA", years: "1990", engine: "7.0L V12" }
+  ],
+  hero_image: "images/cars/jaguar/xjr-12/hero.jpg",
+  image_gallery: [
+    "images/cars/jaguar/xjr-12/1.jpg",
+    "images/cars/jaguar/xjr-12/2.jpg",
+    "images/cars/jaguar/xjr-12/3.jpg"
+  ]
+},
+
 
   // 10. Jensen
 {
@@ -4742,6 +4930,100 @@ const britishCars = [
   ]
 },
 
+// Lotus 49
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Formula One",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "special",
+  model: "49",
+  model_slug: "49",
+  model_summary: "A revolutionary Formula One car that introduced the Cosworth DFV engine as a stressed chassis member, redefining F1 design and performance.",
+  years_produced: "1967–1970",
+  engine: "3.0L V8 (Ford‑Cosworth DFV)",
+  horsepower: "410–430",
+  top_speed_mph: 190,
+  body_style: "Open‑wheel Formula One",
+  drivetrain: "RWD",
+  transmission: "5‑speed manual",
+  seating: 1,
+  production_location: "Hethel, England",
+  designer: "Colin Chapman / Maurice Philippe",
+  price_when_new: "Prototype racing car",
+  current_value_range: "£7–12 million",
+  model_type: "formula one car",
+  tags: ["formula one", "racing", "classic", "dfv"],
+  notable_details: [
+    "First Formula One car to use the engine as a fully stressed member.",
+    "Introduced the Ford‑Cosworth DFV, the most successful engine in F1 history."
+  ],
+  fun_facts: [
+    "Won on its debut at the 1967 Dutch Grand Prix.",
+    "The DFV powered cars won over 150 Formula One races."
+  ],
+  notable_achievements: [
+    "Winner of the 1968 Formula One World Championship.",
+    "One of the most important cars in motorsport history."
+  ],
+  variants: [
+    { name: "Lotus 49B", years: "1968–1970", engine: "Cosworth DFV V8" }
+  ],
+  hero_image: "images/cars/lotus/49/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/49/1.jpg",
+    "images/cars/lotus/49/2.jpg",
+    "images/cars/lotus/49/3.jpg"
+  ]
+},
+
+// Lotus 79
+{
+  manufacturer: "Lotus",
+  slug: "lotus",
+  brand_group: "Formula One",
+  brand_url: "https://www.lotuscars.com",
+  heritage_group: "special",
+  model: "79",
+  model_slug: "79",
+  model_summary: "The ultimate ground‑effect Formula One car, using aerodynamic downforce to dominate the 1978 season and usher in a new era of F1 design.",
+  years_produced: "1978–1979",
+  engine: "3.0L V8 (Ford‑Cosworth DFV)",
+  horsepower: "480–500",
+  top_speed_mph: 200,
+  body_style: "Open‑wheel Formula One",
+  drivetrain: "RWD",
+  transmission: "5‑speed manual",
+  seating: 1,
+  production_location: "Hethel, England",
+  designer: "Colin Chapman / Martin Ogilvie",
+  price_when_new: "Prototype racing car",
+  current_value_range: "£6–10 million",
+  model_type: "formula one car",
+  tags: ["formula one", "ground effect", "racing", "classic"],
+  notable_details: [
+    "Perfected full‑length ground‑effect aerodynamics.",
+    "Created unprecedented cornering grip without large wings."
+  ],
+  fun_facts: [
+    "Nicknamed the ‘Black Beauty’ due to its JPS livery.",
+    "Often seconds per lap faster than competitors."
+  ],
+  notable_achievements: [
+    "Winner of the 1978 Formula One World Championship.",
+    "One of the most dominant single‑season F1 cars ever built."
+  ],
+  variants: [
+    { name: "Lotus 79B", years: "1979", engine: "Cosworth DFV V8" }
+  ],
+  hero_image: "images/cars/lotus/79/hero.jpg",
+  image_gallery: [
+    "images/cars/lotus/79/1.jpg",
+    "images/cars/lotus/79/2.jpg",
+    "images/cars/lotus/79/3.jpg"
+  ]
+},
+
 
   // 13. McLaren
 {
@@ -4787,6 +5069,55 @@ const britishCars = [
     "images/cars/mclaren/f1/3.jpg"
   ]
 },
+
+// McLaren MP4/4
+{
+  manufacturer: "McLaren",
+  slug: "mclaren",
+  brand_group: "Formula One",
+  brand_url: "https://www.mclaren.com",
+  heritage_group: "special",
+  model: "MP4/4",
+  model_slug: "mp4-4",
+  model_summary: "One of the most dominant Formula One cars ever built, engineered by McLaren and Honda to dominate the 1988 season with unparalleled efficiency and reliability.",
+  years_produced: "1988",
+  engine: "1.5L V6 Turbo (Honda RA168E)",
+  horsepower: "675–700",
+  top_speed_mph: 205,
+  body_style: "Open‑wheel Formula One",
+  drivetrain: "RWD",
+  transmission: "6‑speed manual",
+  seating: 1,
+  production_location: "Woking, England",
+  designer: "Steve Nichols / Gordon Murray",
+  price_when_new: "Prototype racing car",
+  current_value_range: "£10–15 million",
+  model_type: "formula one car",
+  tags: ["formula one", "turbo era", "racing", "classic"],
+  notable_details: [
+    "Designed with extreme aerodynamic efficiency rather than brute downforce.",
+    "Paired flawlessly with Honda’s dominant turbocharged engine."
+  ],
+  fun_facts: [
+    "Won 15 of 16 races during the 1988 Formula One season.",
+    "Driven by Ayrton Senna and Alain Prost."
+  ],
+  notable_achievements: [
+    "Winner of the 1988 Formula One World Championship.",
+    "Widely regarded as the most successful F1 car in history."
+  ],
+  variants: [
+    { name: "MP4/4", years: "1988", engine: "Honda RA168E V6 Turbo" }
+  ],
+  hero_image: "images/cars/mclaren/mp4/hero.jpg",
+  image_gallery: [
+    "images/cars/mclaren/mp4/1.jpg",
+    "images/cars/mclaren/mp4/2.jpg",
+    "images/cars/mclaren/mp4/3.jpg"
+  ]
+},
+
+
 {
   manufacturer: "McLaren",
   slug: "mclaren",
